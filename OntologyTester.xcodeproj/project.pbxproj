@@ -16,6 +16,9 @@
 		1A2F618C13E801C700B9A9D7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F618B13E801C700B9A9D7 /* SystemConfiguration.framework */; };
 		1A2F618E13E801D400B9A9D7 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F618D13E801D400B9A9D7 /* CoreServices.framework */; };
 		1A2F619013E801DD00B9A9D7 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F618F13E801DD00B9A9D7 /* libxml2.dylib */; };
+		1A2F61A913E8252400B9A9D7 /* Ontology.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F61A813E8252400B9A9D7 /* Ontology.m */; };
+		1A2F61AC13E860D200B9A9D7 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F61AB13E860D200B9A9D7 /* PreferencesWindowController.m */; };
+		1A2F61AE13E8611200B9A9D7 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A2F61AD13E8611100B9A9D7 /* PreferencesWindow.xib */; };
 		1A3C142813E708C400C47E0A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A3C142713E708C400C47E0A /* Cocoa.framework */; };
 		1A3C143213E708C400C47E0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A3C143013E708C400C47E0A /* InfoPlist.strings */; };
 		1A3C143413E708C400C47E0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3C143313E708C400C47E0A /* main.m */; };
@@ -23,6 +26,7 @@
 		1A3C143B13E708C400C47E0A /* OntologyTesterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3C143A13E708C400C47E0A /* OntologyTesterAppDelegate.m */; };
 		1A3C143E13E708C400C47E0A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A3C143C13E708C400C47E0A /* MainMenu.xib */; };
 		1A4D473313E7F96C00318BCB /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4D473213E7F96C00318BCB /* MainController.m */; };
+		1AD526FE13E869A200EE7207 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1AD526FD13E869A200EE7207 /* icon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +125,11 @@
 		1A2F618B13E801C700B9A9D7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1A2F618D13E801D400B9A9D7 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		1A2F618F13E801DD00B9A9D7 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		1A2F61A713E8252400B9A9D7 /* Ontology.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ontology.h; sourceTree = "<group>"; };
+		1A2F61A813E8252400B9A9D7 /* Ontology.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ontology.m; sourceTree = "<group>"; };
+		1A2F61AA13E860D200B9A9D7 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		1A2F61AB13E860D200B9A9D7 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		1A2F61AD13E8611100B9A9D7 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 		1A3C142313E708C400C47E0A /* OntologyTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OntologyTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A3C142713E708C400C47E0A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1A3C142A13E708C400C47E0A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -136,6 +145,7 @@
 		1A3C143D13E708C400C47E0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1A4D473113E7F96C00318BCB /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		1A4D473213E7F96C00318BCB /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
+		1AD526FD13E869A200EE7207 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = ../icon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +238,11 @@
 				1A3C142E13E708C400C47E0A /* Supporting Files */,
 				1A4D473113E7F96C00318BCB /* MainController.h */,
 				1A4D473213E7F96C00318BCB /* MainController.m */,
+				1A2F61A713E8252400B9A9D7 /* Ontology.h */,
+				1A2F61A813E8252400B9A9D7 /* Ontology.m */,
+				1A2F61AA13E860D200B9A9D7 /* PreferencesWindowController.h */,
+				1A2F61AB13E860D200B9A9D7 /* PreferencesWindowController.m */,
+				1A2F61AD13E8611100B9A9D7 /* PreferencesWindow.xib */,
 			);
 			path = OntologyTester;
 			sourceTree = "<group>";
@@ -235,6 +250,7 @@
 		1A3C142E13E708C400C47E0A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1AD526FD13E869A200EE7207 /* icon.icns */,
 				1A3C142F13E708C400C47E0A /* OntologyTester-Info.plist */,
 				1A3C143013E708C400C47E0A /* InfoPlist.strings */,
 				1A3C143313E708C400C47E0A /* main.m */,
@@ -382,6 +398,8 @@
 				1A3C143213E708C400C47E0A /* InfoPlist.strings in Resources */,
 				1A3C143813E708C400C47E0A /* Credits.rtf in Resources */,
 				1A3C143E13E708C400C47E0A /* MainMenu.xib in Resources */,
+				1A2F61AE13E8611200B9A9D7 /* PreferencesWindow.xib in Resources */,
+				1AD526FE13E869A200EE7207 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +415,8 @@
 				1A4D473313E7F96C00318BCB /* MainController.m in Sources */,
 				1A2F615313E7FAA400B9A9D7 /* RDFTripple.m in Sources */,
 				1A2F615413E7FAA400B9A9D7 /* Statements.m in Sources */,
+				1A2F61A913E8252400B9A9D7 /* Ontology.m in Sources */,
+				1A2F61AC13E860D200B9A9D7 /* PreferencesWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
