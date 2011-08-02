@@ -8,8 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface OntologyTesterAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
+@interface OntologyTesterAppDelegate : NSObject<NSApplicationDelegate> {
 }
 
 @property (assign) IBOutlet NSWindow *window;
