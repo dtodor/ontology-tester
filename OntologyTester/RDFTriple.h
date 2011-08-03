@@ -1,5 +1,5 @@
 //
-//  RDFTripple.h
+//  RDFTriple.h
 //  TestRestKit
 //
 //  Created by Todor Dimitrov on 8/2/11.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RDFTripple : NSObject
+@interface RDFTriple : NSObject
 
 @property (nonatomic, copy) NSString *subject;
 @property (nonatomic, copy) NSString *predicate;

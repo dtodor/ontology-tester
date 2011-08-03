@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A20CCEF13E997B8002387A2 /* ErrorMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A20CCEE13E997B8002387A2 /* ErrorMessage.m */; };
-		1A2F615313E7FAA400B9A9D7 /* RDFTripple.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615013E7FAA400B9A9D7 /* RDFTripple.m */; };
+		1A2F615313E7FAA400B9A9D7 /* RDFTriple.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615013E7FAA400B9A9D7 /* RDFTriple.m */; };
 		1A2F615413E7FAA400B9A9D7 /* Statements.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615213E7FAA400B9A9D7 /* Statements.m */; };
 		1A2F618713E801B500B9A9D7 /* libRestKitJSONParserJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F617713E8011400B9A9D7 /* libRestKitJSONParserJSONKit.a */; };
 		1A2F618813E801B500B9A9D7 /* libRestKitNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F616B13E8011400B9A9D7 /* libRestKitNetwork.a */; };
@@ -121,8 +121,8 @@
 /* Begin PBXFileReference section */
 		1A20CCED13E997B8002387A2 /* ErrorMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorMessage.h; sourceTree = "<group>"; };
 		1A20CCEE13E997B8002387A2 /* ErrorMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMessage.m; sourceTree = "<group>"; };
-		1A2F614F13E7FAA400B9A9D7 /* RDFTripple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDFTripple.h; sourceTree = "<group>"; };
-		1A2F615013E7FAA400B9A9D7 /* RDFTripple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDFTripple.m; sourceTree = "<group>"; };
+		1A2F614F13E7FAA400B9A9D7 /* RDFTriple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDFTriple.h; sourceTree = "<group>"; };
+		1A2F615013E7FAA400B9A9D7 /* RDFTriple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDFTriple.m; sourceTree = "<group>"; };
 		1A2F615113E7FAA400B9A9D7 /* Statements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statements.h; sourceTree = "<group>"; };
 		1A2F615213E7FAA400B9A9D7 /* Statements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statements.m; sourceTree = "<group>"; };
 		1A2F615613E8011400B9A9D7 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
@@ -236,8 +236,8 @@
 			children = (
 				1AF9790713E97CD000E2D4E0 /* NSAlert-OAExtensions.h */,
 				1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */,
-				1A2F614F13E7FAA400B9A9D7 /* RDFTripple.h */,
-				1A2F615013E7FAA400B9A9D7 /* RDFTripple.m */,
+				1A2F614F13E7FAA400B9A9D7 /* RDFTriple.h */,
+				1A2F615013E7FAA400B9A9D7 /* RDFTriple.m */,
 				1A2F615113E7FAA400B9A9D7 /* Statements.h */,
 				1A2F615213E7FAA400B9A9D7 /* Statements.m */,
 				1A3C143913E708C400C47E0A /* OntologyTesterAppDelegate.h */,
@@ -423,7 +423,7 @@
 				1A3C143413E708C400C47E0A /* main.m in Sources */,
 				1A3C143B13E708C400C47E0A /* OntologyTesterAppDelegate.m in Sources */,
 				1A4D473313E7F96C00318BCB /* MainController.m in Sources */,
-				1A2F615313E7FAA400B9A9D7 /* RDFTripple.m in Sources */,
+				1A2F615313E7FAA400B9A9D7 /* RDFTriple.m in Sources */,
 				1A2F615413E7FAA400B9A9D7 /* Statements.m in Sources */,
 				1A2F61A913E8252400B9A9D7 /* Ontology.m in Sources */,
 				1A2F61AC13E860D200B9A9D7 /* PreferencesWindowController.m in Sources */,

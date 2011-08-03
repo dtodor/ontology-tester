@@ -7,7 +7,7 @@
 //
 
 #import "MainController.h"
-#import "RDFTripple.h"
+#import "RDFTriple.h"
 #import "Statements.h"
 #import "Ontology.h"
 #import <RestKit/RestKit.h>
@@ -48,14 +48,14 @@ typedef enum {
     RKObjectManager *objectManager = [RKObjectManager objectManagerWithBaseURL:@"http://localhost:8081"];
     
     // Setup our object mappings
-    RKObjectMapping *rdfTripple = [RKObjectMapping mappingForClass:[RDFTripple class]];
-    [rdfTripple mapKeyPath:@"s" toAttribute:@"subject"];
-    [rdfTripple mapKeyPath:@"p" toAttribute:@"predicate"];
-    [rdfTripple mapKeyPath:@"o" toAttribute:@"object"];
+    RKObjectMapping *rdfTriple = [RKObjectMapping mappingForClass:[RDFTriple class]];
+    [rdfTriple mapKeyPath:@"s" toAttribute:@"subject"];
+    [rdfTriple mapKeyPath:@"p" toAttribute:@"predicate"];
+    [rdfTriple mapKeyPath:@"o" toAttribute:@"object"];
     
     RKObjectMapping *statements = [RKObjectMapping mappingForClass:[Statements class]];
     [statements mapAttributes:@"namespaces", nil];
-    [statements hasMany:@"tripples" withMapping:rdfTripple];
+    [statements hasMany:@"triples" withMapping:rdfTriple];
     
     RKObjectMapping *ontology = [RKObjectMapping mappingForClass:[Ontology class]];
     [ontology mapAttributes:@"namespaces", @"uri", nil];
@@ -64,7 +64,7 @@ typedef enum {
     [errorMessage mapAttributes:@"message", nil];
     
     // Register our mappings with the provider
-    [objectManager.mappingProvider setMapping:rdfTripple forKeyPath:@"tripple"];
+    [objectManager.mappingProvider setMapping:rdfTriple forKeyPath:@"triple"];
     [objectManager.mappingProvider setMapping:statements forKeyPath:@"statements"];
     [objectManager.mappingProvider setMapping:ontology forKeyPath:@"ontology"];
     [objectManager.mappingProvider setMapping:errorMessage forKeyPath:@"errorMessage"];
@@ -82,10 +82,10 @@ typedef enum {
         }
     }];
     return [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RDFTripple *tripple = (RDFTripple *)evaluatedObject;
-        NSString *tripplePredicateUri = [_statements uriForAbbreviatedUri:tripple.predicate];
+        RDFTriple *triple = (RDFTriple *)evaluatedObject;
+        NSString *triplePredicateUri = [_statements uriForAbbreviatedUri:triple.predicate];
         for (NSString *predicate in enabledFilterPredicates) {
-            if ([tripplePredicateUri rangeOfString:predicate].location != NSNotFound) {
+            if ([triplePredicateUri rangeOfString:predicate].location != NSNotFound) {
                 return NO;
             }
         }

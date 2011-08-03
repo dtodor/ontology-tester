@@ -1,14 +1,14 @@
 //
-//  RDFTripple.m
+//  RDFTriple.m
 //  TestRestKit
 //
 //  Created by Todor Dimitrov on 8/2/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "RDFTripple.h"
+#import "RDFTriple.h"
 
-@implementation RDFTripple
+@implementation RDFTriple
 
 @synthesize subject=_subject;
 @synthesize predicate=_predicate;

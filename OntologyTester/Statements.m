@@ -7,14 +7,14 @@
 //
 
 #import "Statements.h"
-#import "RDFTripple.h"
+#import "RDFTriple.h"
 
 @implementation Statements {
     NSMutableDictionary *_uriCache;
 }
 
 @synthesize namespaces=_namespaces;
-@synthesize tripples=_tripples;
+@synthesize triples=_triples;
 
 - (id)init {
     self = [super init];
@@ -26,7 +26,7 @@
 
 - (void)dealloc {
     [_namespaces release], _namespaces = nil;
-    [_tripples release], _tripples = nil;
+    [_triples release], _triples = nil;
     [_uriCache release], _uriCache = nil;
     [super dealloc];
 }
@@ -37,9 +37,9 @@
     for (NSString *namespace in _namespaces) {
         descr = [descr stringByAppendingString:[NSString stringWithFormat:@"\tns%d - %@\n", i++, namespace]];
     }
-    descr = [descr stringByAppendingString:@"\ntripples:\n"];
-    for (RDFTripple *tripple in _tripples) {
-        descr = [descr stringByAppendingString:[NSString stringWithFormat:@"\t%@\n", tripple]];
+    descr = [descr stringByAppendingString:@"\ntriples:\n"];
+    for (RDFTriple *triple in _triples) {
+        descr = [descr stringByAppendingString:[NSString stringWithFormat:@"\t%@\n", triple]];
     }
     return descr;
 }

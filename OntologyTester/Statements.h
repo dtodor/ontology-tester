@@ -11,7 +11,7 @@
 @interface Statements : NSObject
 
 @property (nonatomic, retain) NSArray *namespaces;
-@property (nonatomic, retain) NSArray *tripples;
+@property (nonatomic, retain) NSArray *triples;
 
 - (NSString *)uriForAbbreviatedUri:(NSString *)uri;
 
