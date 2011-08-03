@@ -12,6 +12,7 @@
 #import "Ontology.h"
 #import <RestKit/RestKit.h>
 #import "PreferencesWindowController.h"
+#import "NSAlert-OAExtensions.h"
 
 @interface MainController() <RKObjectLoaderDelegate, NSTabViewDelegate>
 @end
@@ -119,9 +120,6 @@ typedef enum {
 }
 
 - (IBAction)performQuery:(id)sender {
-    [_activityIndicator setHidden:NO];
-    [_activityIndicator startAnimation:self];
-    
     NSMutableDictionary *queryParams = [NSMutableDictionary dictionary];
     if ([_subject length] > 0) {
         [queryParams setObject:[NSString stringWithFormat:@"%@%@", _subjectNS, _subject] forKey:@"subject"];
@@ -135,9 +133,25 @@ typedef enum {
     NSString *path = @"/statements";
     path = [path appendQueryParams:queryParams];
     
-    _requestType = RequestType_Statements;
-    RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:path delegate:self];
+    void (^doQuery)() = ^{
+        [_activityIndicator setHidden:NO];
+        [_activityIndicator startAnimation:self];
+        
+        _requestType = RequestType_Statements;
+        RKObjectManager *objectManager = [RKObjectManager sharedManager];
+        [objectManager loadObjectsAtResourcePath:path delegate:self];
+    };
+    
+    if ([queryParams count] == 0) {
+        OABeginAlertSheet(@"No query", @"No", @"Yes", nil, 
+            [sender window], ^(NSAlert *alert, NSInteger code) {
+                  if (code == NSAlertSecondButtonReturn) {
+                      doQuery();
+                  }
+          }, @"No query has been specified. Would you like to retrieve all statements from the KB?");
+    } else {
+        doQuery();
+    }
 }
 
 - (IBAction)refresh:(id)sender {

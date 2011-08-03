@@ -27,6 +27,7 @@
 		1A3C143E13E708C400C47E0A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A3C143C13E708C400C47E0A /* MainMenu.xib */; };
 		1A4D473313E7F96C00318BCB /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4D473213E7F96C00318BCB /* MainController.m */; };
 		1AD526FE13E869A200EE7207 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1AD526FD13E869A200EE7207 /* icon.icns */; };
+		1AF9790913E97CD000E2D4E0 /* NSAlert-OAExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,8 @@
 		1A4D473113E7F96C00318BCB /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
 		1A4D473213E7F96C00318BCB /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		1AD526FD13E869A200EE7207 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = ../icon.icns; sourceTree = "<group>"; };
+		1AF9790713E97CD000E2D4E0 /* NSAlert-OAExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert-OAExtensions.h"; path = "Simple-NSAlert-with-Blocks/NSAlert-OAExtensions.h"; sourceTree = SOURCE_ROOT; };
+		1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAlert-OAExtensions.m"; path = "Simple-NSAlert-with-Blocks/NSAlert-OAExtensions.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +231,8 @@
 		1A3C142D13E708C400C47E0A /* OntologyTester */ = {
 			isa = PBXGroup;
 			children = (
+				1AF9790713E97CD000E2D4E0 /* NSAlert-OAExtensions.h */,
+				1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */,
 				1A2F614F13E7FAA400B9A9D7 /* RDFTripple.h */,
 				1A2F615013E7FAA400B9A9D7 /* RDFTripple.m */,
 				1A2F615113E7FAA400B9A9D7 /* Statements.h */,
@@ -417,6 +422,7 @@
 				1A2F615413E7FAA400B9A9D7 /* Statements.m in Sources */,
 				1A2F61A913E8252400B9A9D7 /* Ontology.m in Sources */,
 				1A2F61AC13E860D200B9A9D7 /* PreferencesWindowController.m in Sources */,
+				1AF9790913E97CD000E2D4E0 /* NSAlert-OAExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

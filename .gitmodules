@@ -1,3 +1,6 @@
 [submodule "RestKit"]
 	path = RestKit
 	url = git://github.com/RestKit/RestKit.git
+[submodule "Simple-NSAlert-with-Blocks"]
+	path = Simple-NSAlert-with-Blocks
+	url = git://github.com/loghound/Simple-NSAlert-with-Blocks.git
