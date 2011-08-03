@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A20CCEF13E997B8002387A2 /* ErrorMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A20CCEE13E997B8002387A2 /* ErrorMessage.m */; };
 		1A2F615313E7FAA400B9A9D7 /* RDFTripple.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615013E7FAA400B9A9D7 /* RDFTripple.m */; };
 		1A2F615413E7FAA400B9A9D7 /* Statements.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615213E7FAA400B9A9D7 /* Statements.m */; };
 		1A2F618713E801B500B9A9D7 /* libRestKitJSONParserJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2F617713E8011400B9A9D7 /* libRestKitJSONParserJSONKit.a */; };
@@ -118,6 +119,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A20CCED13E997B8002387A2 /* ErrorMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorMessage.h; sourceTree = "<group>"; };
+		1A20CCEE13E997B8002387A2 /* ErrorMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMessage.m; sourceTree = "<group>"; };
 		1A2F614F13E7FAA400B9A9D7 /* RDFTripple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDFTripple.h; sourceTree = "<group>"; };
 		1A2F615013E7FAA400B9A9D7 /* RDFTripple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDFTripple.m; sourceTree = "<group>"; };
 		1A2F615113E7FAA400B9A9D7 /* Statements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statements.h; sourceTree = "<group>"; };
@@ -131,15 +134,15 @@
 		1A2F61AA13E860D200B9A9D7 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		1A2F61AB13E860D200B9A9D7 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		1A2F61AD13E8611100B9A9D7 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
-		1A3C142313E708C400C47E0A /* OntologyTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OntologyTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A3C142313E708C400C47E0A /* Ontology Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ontology Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A3C142713E708C400C47E0A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		1A3C142A13E708C400C47E0A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		1A3C142B13E708C400C47E0A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1A3C142C13E708C400C47E0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1A3C142F13E708C400C47E0A /* OntologyTester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OntologyTester-Info.plist"; sourceTree = "<group>"; };
+		1A3C142F13E708C400C47E0A /* Ontology Tester-Info.plist */ = {isa = PBXFileReference; path = "Ontology Tester-Info.plist"; sourceTree = "<group>"; };
 		1A3C143113E708C400C47E0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1A3C143313E708C400C47E0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1A3C143513E708C400C47E0A /* OntologyTester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OntologyTester-Prefix.pch"; sourceTree = "<group>"; };
+		1A3C143513E708C400C47E0A /* Ontology Tester-Prefix.pch */ = {isa = PBXFileReference; path = "Ontology Tester-Prefix.pch"; sourceTree = "<group>"; };
 		1A3C143713E708C400C47E0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		1A3C143913E708C400C47E0A /* OntologyTesterAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OntologyTesterAppDelegate.h; sourceTree = "<group>"; };
 		1A3C143A13E708C400C47E0A /* OntologyTesterAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntologyTesterAppDelegate.m; sourceTree = "<group>"; };
@@ -200,7 +203,7 @@
 		1A3C142413E708C400C47E0A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A3C142313E708C400C47E0A /* OntologyTester.app */,
+				1A3C142313E708C400C47E0A /* Ontology Tester.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,6 +251,8 @@
 				1A2F61AA13E860D200B9A9D7 /* PreferencesWindowController.h */,
 				1A2F61AB13E860D200B9A9D7 /* PreferencesWindowController.m */,
 				1A2F61AD13E8611100B9A9D7 /* PreferencesWindow.xib */,
+				1A20CCED13E997B8002387A2 /* ErrorMessage.h */,
+				1A20CCEE13E997B8002387A2 /* ErrorMessage.m */,
 			);
 			path = OntologyTester;
 			sourceTree = "<group>";
@@ -256,10 +261,10 @@
 			isa = PBXGroup;
 			children = (
 				1AD526FD13E869A200EE7207 /* icon.icns */,
-				1A3C142F13E708C400C47E0A /* OntologyTester-Info.plist */,
+				1A3C142F13E708C400C47E0A /* Ontology Tester-Info.plist */,
 				1A3C143013E708C400C47E0A /* InfoPlist.strings */,
 				1A3C143313E708C400C47E0A /* main.m */,
-				1A3C143513E708C400C47E0A /* OntologyTester-Prefix.pch */,
+				1A3C143513E708C400C47E0A /* Ontology Tester-Prefix.pch */,
 				1A3C143613E708C400C47E0A /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -268,9 +273,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1A3C142213E708C300C47E0A /* OntologyTester */ = {
+		1A3C142213E708C300C47E0A /* Ontology Tester */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1A3C144113E708C400C47E0A /* Build configuration list for PBXNativeTarget "OntologyTester" */;
+			buildConfigurationList = 1A3C144113E708C400C47E0A /* Build configuration list for PBXNativeTarget "Ontology Tester" */;
 			buildPhases = (
 				1A3C141F13E708C300C47E0A /* Sources */,
 				1A3C142013E708C300C47E0A /* Frameworks */,
@@ -281,9 +286,9 @@
 			dependencies = (
 				1A2F618613E8018700B9A9D7 /* PBXTargetDependency */,
 			);
-			name = OntologyTester;
+			name = "Ontology Tester";
 			productName = OntologyTester;
-			productReference = 1A3C142313E708C400C47E0A /* OntologyTester.app */;
+			productReference = 1A3C142313E708C400C47E0A /* Ontology Tester.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -291,7 +296,7 @@
 /* Begin PBXProject section */
 		1A3C141A13E708C200C47E0A /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1A3C141D13E708C200C47E0A /* Build configuration list for PBXProject "OntologyTester" */;
+			buildConfigurationList = 1A3C141D13E708C200C47E0A /* Build configuration list for PBXProject "Ontology Tester" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -309,7 +314,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				1A3C142213E708C300C47E0A /* OntologyTester */,
+				1A3C142213E708C300C47E0A /* Ontology Tester */,
 			);
 		};
 /* End PBXProject section */
@@ -423,6 +428,7 @@
 				1A2F61A913E8252400B9A9D7 /* Ontology.m in Sources */,
 				1A2F61AC13E860D200B9A9D7 /* PreferencesWindowController.m in Sources */,
 				1AF9790913E97CD000E2D4E0 /* NSAlert-OAExtensions.m in Sources */,
+				1A20CCEF13E997B8002387A2 /* ErrorMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,9 +529,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OntologyTester/OntologyTester-Prefix.pch";
-				INFOPLIST_FILE = "OntologyTester/OntologyTester-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "OntologyTester/Ontology Tester-Prefix.pch";
+				INFOPLIST_FILE = "OntologyTester/Ontology Tester-Info.plist";
+				PRODUCT_NAME = "Ontology Tester";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -534,9 +540,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OntologyTester/OntologyTester-Prefix.pch";
-				INFOPLIST_FILE = "OntologyTester/OntologyTester-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "OntologyTester/Ontology Tester-Prefix.pch";
+				INFOPLIST_FILE = "OntologyTester/Ontology Tester-Info.plist";
+				PRODUCT_NAME = "Ontology Tester";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -544,7 +550,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A3C141D13E708C200C47E0A /* Build configuration list for PBXProject "OntologyTester" */ = {
+		1A3C141D13E708C200C47E0A /* Build configuration list for PBXProject "Ontology Tester" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A3C143F13E708C400C47E0A /* Debug */,
@@ -553,7 +559,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A3C144113E708C400C47E0A /* Build configuration list for PBXNativeTarget "OntologyTester" */ = {
+		1A3C144113E708C400C47E0A /* Build configuration list for PBXNativeTarget "Ontology Tester" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A3C144213E708C400C47E0A /* Debug */,
