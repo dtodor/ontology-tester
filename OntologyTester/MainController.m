@@ -16,7 +16,14 @@
 @interface MainController() <RKObjectLoaderDelegate, NSTabViewDelegate>
 @end
 
-@implementation MainController
+typedef enum {
+    RequestType_Ontology,
+    RequestType_Statements
+} RequestType;
+
+@implementation MainController {
+    RequestType _requestType;
+}
 
 @synthesize statements=_statements;
 @synthesize ontology=_ontology;
@@ -52,7 +59,7 @@
     [ontology mapAttributes:@"namespaces", @"uri", nil];
     
     // Register our mappings with the provider
-    [objectManager.mappingProvider setMapping:rdfTripple forKeyPath:@"rdfTripple"];
+    [objectManager.mappingProvider setMapping:rdfTripple forKeyPath:@"tripple"];
     [objectManager.mappingProvider setMapping:statements forKeyPath:@"statements"];
     [objectManager.mappingProvider setMapping:ontology forKeyPath:@"ontology"];
     
@@ -128,28 +135,21 @@
     NSString *path = @"/statements";
     path = [path appendQueryParams:queryParams];
     
+    _requestType = RequestType_Statements;
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:path delegate:self block:^(RKObjectLoader *loader) {
-        if ([objectManager.acceptMIMEType isEqualToString:RKMIMETypeJSON]) {
-            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Statements class]];
-        }
-    }];
+    [objectManager loadObjectsAtResourcePath:path delegate:self];
 }
 
 - (IBAction)refresh:(id)sender {
     [_activityIndicator setHidden:NO];
     [_activityIndicator startAnimation:self];
 
+    _requestType = RequestType_Ontology;
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:@"/ontology" delegate:self block:^(RKObjectLoader *loader) {
-        if ([objectManager.acceptMIMEType isEqualToString:RKMIMETypeJSON]) {
-            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Ontology class]];
-        }
-    }];
+    [objectManager loadObjectsAtResourcePath:@"/ontology" delegate:self];
 }
 
 - (void)preferencesSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-
     NSLog(@"Close preferences");
     [(PreferencesWindowController *)contextInfo release];
 }
@@ -200,11 +200,16 @@
         // NSLog(@"Received object: \n%@", stmts);
         self.statements = stmts;
     } else if (!object) {
-        if (objectLoader.objectMapping.objectClass == [Ontology class]) {
-            self.ontology = nil;
-            self.statements = nil;
-        } else if (objectLoader.objectMapping.objectClass == [Statements class]) {
-            self.statements = nil;
+        switch (_requestType) {
+            case RequestType_Ontology:
+                self.ontology = nil;
+                self.statements = nil;
+                break;
+            case RequestType_Statements:
+                self.statements = nil;
+                break;
+            default:
+                break;
         }
     }
 }
