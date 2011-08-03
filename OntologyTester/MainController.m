@@ -13,6 +13,7 @@
 #import <RestKit/RestKit.h>
 #import "PreferencesWindowController.h"
 #import "NSAlert-OAExtensions.h"
+#import "ErrorMessage.h"
 
 @interface MainController() <RKObjectLoaderDelegate, NSTabViewDelegate>
 @end
@@ -59,10 +60,14 @@ typedef enum {
     RKObjectMapping *ontology = [RKObjectMapping mappingForClass:[Ontology class]];
     [ontology mapAttributes:@"namespaces", @"uri", nil];
     
+    RKObjectMapping *errorMessage = [RKObjectMapping mappingForClass:[ErrorMessage class]];
+    [errorMessage mapAttributes:@"message", nil];
+    
     // Register our mappings with the provider
     [objectManager.mappingProvider setMapping:rdfTripple forKeyPath:@"tripple"];
     [objectManager.mappingProvider setMapping:statements forKeyPath:@"statements"];
     [objectManager.mappingProvider setMapping:ontology forKeyPath:@"ontology"];
+    [objectManager.mappingProvider setMapping:errorMessage forKeyPath:@"errorMessage"];
     
     [self addObserver:self forKeyPath:@"filterResults" options:0 context:NULL];
 }
@@ -89,7 +94,6 @@ typedef enum {
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-
     if ([keyPath isEqualToString:@"filterResults"]) {
         if (_filterResults) {
             self.filterPredicate = [self buildFilterPredicate];
@@ -187,9 +191,8 @@ typedef enum {
     [_activityIndicator stopAnimation:self];
     [_activityIndicator setHidden:YES];
     NSLog(@"An error occurred: %@", [error localizedDescription]);
-    
     NSAlert *alert = [NSAlert alertWithError:error];
-    [alert runModal];
+    [alert beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:NULL];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
