@@ -13,6 +13,7 @@
 @synthesize window=_window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 }
 
 @end

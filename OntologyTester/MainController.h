@@ -26,6 +26,9 @@
 @property (nonatomic, copy) NSString *predicate;
 @property (nonatomic, copy) NSString *object;
 
+@property (nonatomic) BOOL filterResults;
+@property (nonatomic, retain) NSPredicate *filterPredicate;
+
 - (IBAction)performQuery:(id)sender;
 - (IBAction)refresh:(id)sender;
 - (IBAction)openPreferences:(id)sender;

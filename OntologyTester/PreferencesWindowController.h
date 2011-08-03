@@ -8,8 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PreferencesWindowController : NSWindowController
+@interface PreferencesWindowController : NSWindowController {
+}
+
+@property (assign) IBOutlet NSArrayController *filtersArrayController;
+@property (assign) IBOutlet NSTableView *filtersTable;
 
 - (IBAction)dismiss:(id)sender;
+- (IBAction)addNewFilter:(id)sender;
 
 @end

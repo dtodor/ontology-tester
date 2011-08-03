@@ -28,6 +28,9 @@
 @synthesize object=_object;
 @synthesize objectNS=_objectNS;
 
+@synthesize filterResults=_filterResults;
+@synthesize filterPredicate=_filterPredicate;
+
 @synthesize activityIndicator=_activityIndicator;
 
 - (void)awakeFromNib {
@@ -52,9 +55,47 @@
     [objectManager.mappingProvider setMapping:rdfTripple forKeyPath:@"rdfTripple"];
     [objectManager.mappingProvider setMapping:statements forKeyPath:@"statements"];
     [objectManager.mappingProvider setMapping:ontology forKeyPath:@"ontology"];
+    
+    [self addObserver:self forKeyPath:@"filterResults" options:0 context:NULL];
+}
+
+- (NSPredicate *)buildFilterPredicate {
+    NSArray *filters = [[NSUserDefaults standardUserDefaults] arrayForKey:@"filters"];
+    NSMutableArray *enabledFilterPredicates = [NSMutableArray array];
+    [filters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSDictionary *filter = (NSDictionary *)obj;
+        if ([[filter objectForKey:@"enabled"] boolValue]) {
+            [enabledFilterPredicates addObject:[filter objectForKey:@"predicate"]];
+        }
+    }];
+    return [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        RDFTripple *tripple = (RDFTripple *)evaluatedObject;
+        NSString *tripplePredicateUri = [_statements uriForAbbreviatedUri:tripple.predicate];
+        for (NSString *predicate in enabledFilterPredicates) {
+            if ([tripplePredicateUri rangeOfString:predicate].location != NSNotFound) {
+                return NO;
+            }
+        }
+        return YES;
+    }];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+
+    if ([keyPath isEqualToString:@"filterResults"]) {
+        if (_filterResults) {
+            self.filterPredicate = [self buildFilterPredicate];
+        } else {
+            self.filterPredicate = nil;
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"filterResults"];
+    
     [_statements dealloc], _statements = nil;
     [_ontology dealloc], _ontology = nil;
     
@@ -64,6 +105,8 @@
     [_predicateNS release], _predicateNS = nil;
     [_object release], _object = nil;
     [_objectNS release], _objectNS = nil;
+    
+    [_filterPredicate release], _filterPredicate = nil;
     
     [super dealloc];
 }
@@ -114,7 +157,7 @@
 - (IBAction)openPreferences:(id)sender {
     NSLog(@"Open preferences");
     PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
-    
+
     [NSApp beginSheet:preferencesWindowController.window 
 	   modalForWindow:[NSApp mainWindow] 
 		modalDelegate:self 

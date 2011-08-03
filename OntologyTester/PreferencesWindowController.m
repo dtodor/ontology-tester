@@ -10,6 +10,9 @@
 
 @implementation PreferencesWindowController
 
+@synthesize filtersArrayController=_filtersArrayController;
+@synthesize filtersTable=_filtersTable;
+
 - (void)windowDidLoad {
     [super windowDidLoad];
     
@@ -19,6 +22,15 @@
 - (IBAction)dismiss:(id)sender {
     [NSApp endSheet:self.window returnCode:0];
 	[self.window orderOut:nil];
+}
+
+- (IBAction)addNewFilter:(id)sender {
+    NSMutableDictionary *dictionary = [_filtersArrayController newObject];
+    [dictionary setObject:@"Predicate" forKey:@"predicate"];
+    [dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"enabled"];
+    [_filtersArrayController insertObject:dictionary atArrangedObjectIndex:[[_filtersArrayController arrangedObjects] count]];
+    [_filtersTable editColumn:0 row:([[_filtersArrayController arrangedObjects] count]-1) withEvent:nil select:YES];
+    [dictionary release];
 }
 
 @end
