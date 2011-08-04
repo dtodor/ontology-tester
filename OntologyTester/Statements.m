@@ -36,6 +36,8 @@
 
 @implementation Statements {
     NSMutableDictionary *_uriCache;
+    NSMutableDictionary *_namespaceCache;
+    NSMutableDictionary *_localNameCache;
 }
 
 @synthesize namespaces=_namespaces;
@@ -45,6 +47,8 @@
     self = [super init];
     if (self) {
         _uriCache = [[NSMutableDictionary dictionary] retain];
+        _namespaceCache = [[NSMutableDictionary dictionary] retain];
+        _localNameCache = [[NSMutableDictionary dictionary] retain];
     }
     return self;
 }
@@ -53,6 +57,8 @@
     [_namespaces release], _namespaces = nil;
     [_triples release], _triples = nil;
     [_uriCache release], _uriCache = nil;
+    [_namespaceCache release], _namespaceCache = nil;
+    [_localNameCache release], _localNameCache = nil;
     [super dealloc];
 }
 
@@ -69,9 +75,16 @@
     return descr;
 }
 
-- (NSString *)uriForAbbreviatedUri:(NSString *)uri {
+- (NSString *)uriForAbbreviatedUri:(NSString *)uri namespace:(NSString **)namespace localName:(NSString **)localName {
+    
     NSString *cached = [_uriCache objectForKey:uri];
     if (cached) {
+        if (namespace) {
+            *namespace = [_namespaceCache objectForKey:uri];
+        }
+        if (localName) {
+            *localName = [_localNameCache objectForKey:uri];
+        }
         return cached;
     }
     NSError *error = NULL;
@@ -84,9 +97,18 @@
     if ([matches count] == 1) {
         NSTextCheckingResult *match = [matches objectAtIndex:0];
         NSUInteger index = [[regex replacementStringForResult:match inString:uri offset:0 template:@"$1"] integerValue];
-        NSString *localName = [regex replacementStringForResult:match inString:uri offset:0 template:@"$2"];
+        NSString *ln = [regex replacementStringForResult:match inString:uri offset:0 template:@"$2"];
+        if (localName) {
+            *localName = ln;
+            [_localNameCache setObject:ln forKey:uri];
+        }
         if (index < [_namespaces count]) {
-            retValue = [NSString stringWithFormat:@"%@%@", [_namespaces objectAtIndex:index], localName];
+            NSString *ns = [_namespaces objectAtIndex:index];
+            retValue = [NSString stringWithFormat:@"%@%@", ns, ln];
+            if (namespace) {
+                *namespace = ns;
+            }
+            [_namespaceCache setObject:ns forKey:uri];
         }
     }
     [_uriCache setObject:retValue forKey:uri];

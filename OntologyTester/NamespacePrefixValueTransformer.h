@@ -33,16 +33,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PreferencesWindowController : NSWindowController {
+@class Statements;
+
+@interface NamespacePrefixValueTransformer : NSValueTransformer {
 }
 
-@property (assign) IBOutlet NSArrayController *filtersArrayController;
-@property (assign) IBOutlet NSTableView *filtersTable;
-@property (assign) IBOutlet NSArrayController *namespacesArrayController;
-@property (assign) IBOutlet NSTableView *namespacesTable;
-
-- (IBAction)dismiss:(id)sender;
-- (IBAction)addNewFilter:(id)sender;
-- (IBAction)addNewNamespace:(id)sender;
+@property (nonatomic, retain) Statements *statements;
 
 @end

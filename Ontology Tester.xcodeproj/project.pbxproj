@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A01CA4013EACDF100AC65CE /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A01CA3F13EACDF100AC65CE /* defaults.plist */; };
+		1A01CA4313EAD7B800AC65CE /* NamespacePrefixValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A01CA4213EAD7B800AC65CE /* NamespacePrefixValueTransformer.m */; };
 		1A20CCEF13E997B8002387A2 /* ErrorMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A20CCEE13E997B8002387A2 /* ErrorMessage.m */; };
 		1A2F615313E7FAA400B9A9D7 /* RDFTriple.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615013E7FAA400B9A9D7 /* RDFTriple.m */; };
 		1A2F615413E7FAA400B9A9D7 /* Statements.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615213E7FAA400B9A9D7 /* Statements.m */; };
@@ -119,6 +121,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A01CA3F13EACDF100AC65CE /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
+		1A01CA4113EAD7B800AC65CE /* NamespacePrefixValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamespacePrefixValueTransformer.h; sourceTree = "<group>"; };
+		1A01CA4213EAD7B800AC65CE /* NamespacePrefixValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NamespacePrefixValueTransformer.m; sourceTree = "<group>"; };
 		1A20CCED13E997B8002387A2 /* ErrorMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ErrorMessage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1A20CCEE13E997B8002387A2 /* ErrorMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ErrorMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1A2F614F13E7FAA400B9A9D7 /* RDFTriple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RDFTriple.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -234,6 +239,8 @@
 		1A3C142D13E708C400C47E0A /* OntologyTester */ = {
 			isa = PBXGroup;
 			children = (
+				1A01CA4113EAD7B800AC65CE /* NamespacePrefixValueTransformer.h */,
+				1A01CA4213EAD7B800AC65CE /* NamespacePrefixValueTransformer.m */,
 				1AF9790713E97CD000E2D4E0 /* NSAlert-OAExtensions.h */,
 				1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */,
 				1A2F614F13E7FAA400B9A9D7 /* RDFTriple.h */,
@@ -266,6 +273,7 @@
 				1A3C143313E708C400C47E0A /* main.m */,
 				1A3C143513E708C400C47E0A /* Ontology Tester-Prefix.pch */,
 				1A3C143613E708C400C47E0A /* Credits.rtf */,
+				1A01CA3F13EACDF100AC65CE /* defaults.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -410,6 +418,7 @@
 				1A3C143E13E708C400C47E0A /* MainMenu.xib in Resources */,
 				1A2F61AE13E8611200B9A9D7 /* PreferencesWindow.xib in Resources */,
 				1AD526FE13E869A200EE7207 /* icon.icns in Resources */,
+				1A01CA4013EACDF100AC65CE /* defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +438,7 @@
 				1A2F61AC13E860D200B9A9D7 /* PreferencesWindowController.m in Sources */,
 				1AF9790913E97CD000E2D4E0 /* NSAlert-OAExtensions.m in Sources */,
 				1A20CCEF13E997B8002387A2 /* ErrorMessage.m in Sources */,
+				1A01CA4313EAD7B800AC65CE /* NamespacePrefixValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

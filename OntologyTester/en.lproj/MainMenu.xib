@@ -1820,66 +1820,6 @@
 					<int key="connectionID">535</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.subject</string>
-						<reference key="source" ref="823662155"/>
-						<reference key="destination" ref="398367971"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="823662155"/>
-							<reference key="NSDestination" ref="398367971"/>
-							<string key="NSLabel">value: arrangedObjects.subject</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.subject</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSConditionallySetsEditable</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">942</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.predicate</string>
-						<reference key="source" ref="723489409"/>
-						<reference key="destination" ref="398367971"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="723489409"/>
-							<reference key="NSDestination" ref="398367971"/>
-							<string key="NSLabel">value: arrangedObjects.predicate</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.predicate</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSConditionallySetsEditable</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">944</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.object</string>
-						<reference key="source" ref="386683711"/>
-						<reference key="destination" ref="398367971"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="386683711"/>
-							<reference key="NSDestination" ref="398367971"/>
-							<string key="NSLabel">value: arrangedObjects.object</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.object</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSConditionallySetsEditable</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">945</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">performQuery:</string>
 						<reference key="source" ref="212386994"/>
@@ -2347,6 +2287,66 @@
 						</object>
 					</object>
 					<int key="connectionID">1267</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.subject</string>
+						<reference key="source" ref="823662155"/>
+						<reference key="destination" ref="398367971"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="823662155"/>
+							<reference key="NSDestination" ref="398367971"/>
+							<string key="NSLabel">value: arrangedObjects.subject</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.subject</string>
+							<dictionary key="NSOptions">
+								<boolean value="YES" key="NSConditionallySetsEditable"/>
+								<string key="NSValueTransformerName">NamespacePrefixValueTransformer</string>
+							</dictionary>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1268</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.predicate</string>
+						<reference key="source" ref="723489409"/>
+						<reference key="destination" ref="398367971"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="723489409"/>
+							<reference key="NSDestination" ref="398367971"/>
+							<string key="NSLabel">value: arrangedObjects.predicate</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.predicate</string>
+							<dictionary key="NSOptions">
+								<boolean value="YES" key="NSConditionallySetsEditable"/>
+								<string key="NSValueTransformerName">NamespacePrefixValueTransformer</string>
+							</dictionary>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1269</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.object</string>
+						<reference key="source" ref="386683711"/>
+						<reference key="destination" ref="398367971"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="386683711"/>
+							<reference key="NSDestination" ref="398367971"/>
+							<string key="NSLabel">value: arrangedObjects.object</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.object</string>
+							<dictionary key="NSOptions">
+								<boolean value="YES" key="NSConditionallySetsEditable"/>
+								<string key="NSValueTransformerName">NamespacePrefixValueTransformer</string>
+							</dictionary>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1270</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4505,7 +4505,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1267</int>
+			<int key="maxID">1270</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

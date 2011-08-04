@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>serverAddress</key>
+	<string>http://localhost:8081</string>
+	<key>filters</key>
+	<array>
+		<dict>
+			<key>predicate</key>
+			<string>http://www.w3.org/2002/07/owl#topObjectProperty</string>
+			<key>enabled</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>predicate</key>
+			<string>http://www.w3.org/2002/07/owl#differentFrom</string>
+			<key>enabled</key>
+			<true/>
+		</dict>
+	</array>
+	<key>namespaces</key>
+	<array>
+		<dict>
+			<key>namespace</key>
+			<string>http://www.w3.org/2000/01/rdf-schema#</string>
+			<key>prefix</key>
+			<string>rdfs</string>
+			<key>enabled</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>namespace</key>
+			<string>http://www.w3.org/2001/XMLSchema#</string>
+			<key>prefix</key>
+			<string>xsd</string>
+			<key>enabled</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>namespace</key>
+			<string>http://www.w3.org/1999/02/22-rdf-syntax-ns#</string>
+			<key>prefix</key>
+			<string>rdf</string>
+			<key>enabled</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>namespace</key>
+			<string>http://www.w3.org/2002/07/owl#</string>
+			<key>prefix</key>
+			<string>owl</string>
+			<key>enabled</key>
+			<true/>
+		</dict>
+	</array>
+</dict>
+</plist>

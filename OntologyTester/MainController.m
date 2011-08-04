@@ -39,6 +39,7 @@
 #import "PreferencesWindowController.h"
 #import "NSAlert-OAExtensions.h"
 #import "ErrorMessage.h"
+#import "NamespacePrefixValueTransformer.h"
 
 @interface MainController() <RKObjectLoaderDelegate, NSTabViewDelegate>
 @end
@@ -67,10 +68,22 @@ typedef enum {
 
 @synthesize activityIndicator=_activityIndicator;
 
++ (void)initialize {
+    if (self == [MainController class]) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"defaults" ofType:@"plist"];
+        NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:path];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+        
+        NamespacePrefixValueTransformer *transformer = [[NamespacePrefixValueTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:transformer forName:@"NamespacePrefixValueTransformer"];
+    }
+}
+
 - (void)awakeFromNib {
     [_activityIndicator setHidden:YES];
     
-    RKObjectManager *objectManager = [RKObjectManager objectManagerWithBaseURL:@"http://localhost:8081"];
+    NSString *address = [[NSUserDefaults standardUserDefaults] stringForKey:@"serverAddress"];
+    RKObjectManager *objectManager = [RKObjectManager objectManagerWithBaseURL:address];
     
     // Setup our object mappings
     RKObjectMapping *rdfTriple = [RKObjectMapping mappingForClass:[RDFTriple class]];
@@ -95,6 +108,9 @@ typedef enum {
     [objectManager.mappingProvider setMapping:errorMessage forKeyPath:@"errorMessage"];
     
     [self addObserver:self forKeyPath:@"filterResults" options:0 context:NULL];
+    [self addObserver:self forKeyPath:@"statements" options:0 context:NULL];
+    [self addObserver:self forKeyPath:@"ontology" options:0 context:NULL];
+    [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"serverAddress" options:0 context:NULL];
 }
 
 - (NSPredicate *)buildFilterPredicate {
@@ -108,7 +124,7 @@ typedef enum {
     }];
     return [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         RDFTriple *triple = (RDFTriple *)evaluatedObject;
-        NSString *triplePredicateUri = [_statements uriForAbbreviatedUri:triple.predicate];
+        NSString *triplePredicateUri = [_statements uriForAbbreviatedUri:triple.predicate namespace:NULL localName:NULL];
         for (NSString *predicate in enabledFilterPredicates) {
             if ([triplePredicateUri rangeOfString:predicate].location != NSNotFound) {
                 return NO;
@@ -118,6 +134,44 @@ typedef enum {
     }];
 }
 
+- (void)updateNamespacesConfiguration {
+    if (!self.ontology.namespaces) {
+        return;
+    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *namespaceConfigs = [defaults mutableArrayValueForKey:@"namespaces"];
+    NSArray *oldNamespaces = [namespaceConfigs valueForKeyPath:@"namespace"];
+    NSArray *oldNamespacePrefixes = [namespaceConfigs valueForKeyPath:@"prefix"];
+    NSMutableArray *newNamespaces = [NSMutableArray arrayWithArray:self.ontology.namespaces];
+    if (oldNamespaces) {
+        [newNamespaces removeObjectsInArray:oldNamespaces];
+    }
+    NSMutableArray *namespacePrefixes = [NSMutableArray array];
+    if (oldNamespacePrefixes) {
+        [namespacePrefixes addObjectsFromArray:oldNamespacePrefixes];
+    }
+    NSUInteger i = 0;
+    for (NSString *namespace in newNamespaces) {
+        NSString *prefix = nil;
+        while (true) {
+            prefix = [NSString stringWithFormat:@"_ns%d_", i++];
+            if (![namespacePrefixes containsObject:prefix]) {
+                [namespacePrefixes addObject:prefix];
+                break;
+            }
+        }
+        NSMutableDictionary *config = [NSMutableDictionary dictionary];
+        [config setObject:namespace forKey:@"namespace"];
+        [config setObject:prefix forKey:@"prefix"];
+        [config setObject:[NSNumber numberWithBool:NO] forKey:@"enabled"];
+        [namespaceConfigs addObject:config];
+    }
+    if ([newNamespaces count] > 0) {
+        [defaults setObject:namespaceConfigs forKey:@"namespaces"];
+        [defaults synchronize];
+    }
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"filterResults"]) {
         if (_filterResults) {
@@ -125,6 +179,14 @@ typedef enum {
         } else {
             self.filterPredicate = nil;
         }
+    } else if ([keyPath isEqualToString:@"serverAddress"]) {
+        NSString *address = [[NSUserDefaults standardUserDefaults] stringForKey:@"serverAddress"];
+        [[RKObjectManager sharedManager].client setBaseURL:address];
+    } else if ([keyPath isEqualToString:@"statements"]) {
+        NamespacePrefixValueTransformer *transformer = (NamespacePrefixValueTransformer *)[NSValueTransformer valueTransformerForName:@"NamespacePrefixValueTransformer"];
+        transformer.statements = self.statements;
+    } else if ([keyPath isEqualToString:@"ontology"]) {
+        [self updateNamespacesConfiguration];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -132,6 +194,9 @@ typedef enum {
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"filterResults"];
+    [self removeObserver:self forKeyPath:@"statements"];
+    [self removeObserver:self forKeyPath:@"ontology"];
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"serverAddress"];
     
     [_statements dealloc], _statements = nil;
     [_ontology dealloc], _ontology = nil;
@@ -225,7 +290,6 @@ typedef enum {
     [_activityIndicator setHidden:YES];
     if ([object isKindOfClass:[Ontology class]]) {
         Ontology *ontology = (Ontology *)object;
-        // NSLog(@"Received object: \n%@", ontology);
         self.ontology = ontology;
         if ([ontology.namespaces count] > 0) {
             NSString *defaultNamespace = [ontology.namespaces objectAtIndex:0];
@@ -239,7 +303,6 @@ typedef enum {
         }
     } else if ([object isKindOfClass:[Statements class]]) {
         Statements *stmts = (Statements *)object;
-        // NSLog(@"Received object: \n%@", stmts);
         self.statements = stmts;
     } else if (!object) {
         switch (_requestType) {
@@ -262,7 +325,7 @@ typedef enum {
 
 - (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
 
-    NSString *uri = [_statements uriForAbbreviatedUri:[aCell stringValue]];
+    NSString *uri = [_statements uriForAbbreviatedUri:[aCell stringValue] namespace:NULL localName:NULL];
     return uri;
 }
 

@@ -37,12 +37,8 @@
 
 @synthesize filtersArrayController=_filtersArrayController;
 @synthesize filtersTable=_filtersTable;
-
-- (void)windowDidLoad {
-    [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-}
+@synthesize namespacesArrayController=_namespacesArrayController;
+@synthesize namespacesTable=_namespacesTable;
 
 - (IBAction)dismiss:(id)sender {
     [NSApp endSheet:self.window returnCode:0];
@@ -54,7 +50,23 @@
     [dictionary setObject:@"Predicate" forKey:@"predicate"];
     [dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"enabled"];
     [_filtersArrayController insertObject:dictionary atArrangedObjectIndex:[[_filtersArrayController arrangedObjects] count]];
-    [_filtersTable editColumn:0 row:([[_filtersArrayController arrangedObjects] count]-1) withEvent:nil select:YES];
+    
+    NSUInteger newRow = [[_filtersArrayController arrangedObjects] count]-1;
+    [_filtersTable selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
+    [_filtersTable editColumn:0 row:newRow withEvent:nil select:YES];
+    [dictionary release];
+}
+
+- (IBAction)addNewNamespace:(id)sender {
+    NSMutableDictionary *dictionary = [_namespacesArrayController newObject];
+    [dictionary setObject:@"Namespace" forKey:@"namespace"];
+    [dictionary setObject:@"Prefix" forKey:@"prefix"];
+    [dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"enabled"];
+    [_namespacesArrayController insertObject:dictionary atArrangedObjectIndex:[[_namespacesArrayController arrangedObjects] count]];
+
+    NSUInteger newRow = [[_namespacesArrayController arrangedObjects] count]-1;
+    [_namespacesTable selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
+    [_namespacesTable editColumn:0 row:([[_namespacesArrayController arrangedObjects] count]-1) withEvent:nil select:YES];
     [dictionary release];
 }
 
