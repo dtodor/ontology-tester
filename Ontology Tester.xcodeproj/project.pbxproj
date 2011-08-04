@@ -139,10 +139,10 @@
 		1A3C142A13E708C400C47E0A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		1A3C142B13E708C400C47E0A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1A3C142C13E708C400C47E0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1A3C142F13E708C400C47E0A /* Ontology Tester-Info.plist */ = {isa = PBXFileReference; path = "Ontology Tester-Info.plist"; sourceTree = "<group>"; };
+		1A3C142F13E708C400C47E0A /* Ontology Tester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ontology Tester-Info.plist"; sourceTree = "<group>"; };
 		1A3C143113E708C400C47E0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1A3C143313E708C400C47E0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1A3C143513E708C400C47E0A /* Ontology Tester-Prefix.pch */ = {isa = PBXFileReference; path = "Ontology Tester-Prefix.pch"; sourceTree = "<group>"; };
+		1A3C143513E708C400C47E0A /* Ontology Tester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ontology Tester-Prefix.pch"; sourceTree = "<group>"; };
 		1A3C143713E708C400C47E0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		1A3C143913E708C400C47E0A /* OntologyTesterAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OntologyTesterAppDelegate.h; sourceTree = "<group>"; };
 		1A3C143A13E708C400C47E0A /* OntologyTesterAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntologyTesterAppDelegate.m; sourceTree = "<group>"; };
