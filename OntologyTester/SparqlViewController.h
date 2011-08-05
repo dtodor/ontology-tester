@@ -44,5 +44,6 @@
 @property (assign) IBOutlet NSTableView *resultsTable;
 
 - (IBAction)performQuery:(id)sender;
+- (IBAction)populateNamespaces:(id)sender;
 
 @end

@@ -40,8 +40,9 @@
 #import "NSAlert-OAExtensions.h"
 #import "MainController.h"
 #import "URICache.h"
+#import "NSTableView+TDExtensions.h"
 
-@interface StatementsViewController() <RKObjectLoaderDelegate, NSTabViewDelegate>
+@interface StatementsViewController() <RKObjectLoaderDelegate, TDTableViewDelegate>
 @end
 
 @implementation StatementsViewController
@@ -185,7 +186,7 @@
 }
 
 #pragma mark -
-#pragma mark NSTabViewDelegate 
+#pragma mark TDTableViewDelegate 
 #pragma mark -
 
 - (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
@@ -193,6 +194,13 @@
     NSString *stringValue = [aCell stringValue];
     NSString *uri = [_statements.uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
     return uri;
+}
+
+- (NSMenu *)tableView:(NSTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
+    [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+    NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
+    NSString *uri = [_statements.uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
+    return [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
 }
 
 @end

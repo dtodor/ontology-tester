@@ -39,8 +39,9 @@
 #import "RDFTriple.h"
 #import "DefaultNamespaces.h"
 #import "URICache.h"
+#import "NSTableView+TDExtensions.h"
 
-@interface SparqlViewController() <RKObjectLoaderDelegate, NSTableViewDataSource>
+@interface SparqlViewController() <RKObjectLoaderDelegate, NSTableViewDataSource, TDTableViewDelegate>
 
 @property (nonatomic, retain) SparqlQuery *result;
 
@@ -66,21 +67,8 @@
 }
 
 - (void)awakeFromNib {
-    DefaultNamespaces *defaultNamespaces = [DefaultNamespaces sharedDefaultNamespaces];
-    NSSet *namespaces = [defaultNamespaces namespaces];
-    NSMutableString *preloadedPrefixes = [NSMutableString string];
-    for (NSString *namespace in namespaces) {
-        if ([namespace length] < 1) {
-            continue;
-        }
-        NSString *prefix = [defaultNamespaces prefixForNamespace:namespace onlyEnabled:NO];
-        if ([namespace length] < 1) {
-            continue;
-        }
-        [preloadedPrefixes appendFormat:@"PREFIX %@: <%@>\n", prefix, namespace];
-    }
-    self.queryString = preloadedPrefixes;
     self.font = [NSFont systemFontOfSize:10.0];
+    [self populateNamespaces:self];
 }
 
 - (IBAction)performQuery:(id)sender {
@@ -99,6 +87,23 @@
         loader.serializationMapping.rootKeyPath = @"sparqlQuery";
     }];
     [test release];
+}
+
+- (IBAction)populateNamespaces:(id)sender {
+    DefaultNamespaces *defaultNamespaces = [DefaultNamespaces sharedDefaultNamespaces];
+    NSSet *namespaces = [defaultNamespaces namespaces];
+    NSMutableString *preloadedPrefixes = [NSMutableString string];
+    for (NSString *namespace in namespaces) {
+        if ([namespace length] < 1) {
+            continue;
+        }
+        NSString *prefix = [defaultNamespaces prefixForNamespace:namespace onlyEnabled:NO];
+        if ([namespace length] < 1) {
+            continue;
+        }
+        [preloadedPrefixes appendFormat:@"PREFIX %@: <%@>\n", prefix, namespace];
+    }
+    self.queryString = preloadedPrefixes;
 }
 
 - (void)populateResults {
@@ -172,7 +177,7 @@
 }
 
 #pragma mark -
-#pragma mark NSTabViewDelegate 
+#pragma mark TDTableViewDelegate 
 #pragma mark -
 
 - (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
@@ -180,6 +185,13 @@
     NSString *stringValue = [aCell stringValue];
     NSString *uri = [_uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
     return uri;
+}
+
+- (NSMenu *)tableView:(NSTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
+    [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+    NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
+    NSString *uri = [_uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
+    return [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
 }
 
 @end

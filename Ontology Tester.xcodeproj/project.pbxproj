@@ -28,6 +28,7 @@
 		1A3C143813E708C400C47E0A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1A3C143613E708C400C47E0A /* Credits.rtf */; };
 		1A3C143B13E708C400C47E0A /* OntologyTesterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3C143A13E708C400C47E0A /* OntologyTesterAppDelegate.m */; };
 		1A3C143E13E708C400C47E0A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A3C143C13E708C400C47E0A /* MainMenu.xib */; };
+		1A4AE41513EC60AA000E38CE /* NSTableView+TDExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4AE41413EC60AA000E38CE /* NSTableView+TDExtensions.m */; };
 		1A4D473313E7F96C00318BCB /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4D473213E7F96C00318BCB /* MainController.m */; };
 		1A5F3A2F13EBFBE800A344C1 /* DefaultNamespaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5F3A2E13EBFBE800A344C1 /* DefaultNamespaces.m */; };
 		1A5F3A3313EBFF9F00A344C1 /* SparqlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5F3A3113EBFF9F00A344C1 /* SparqlViewController.m */; };
@@ -159,6 +160,8 @@
 		1A3C143913E708C400C47E0A /* OntologyTesterAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OntologyTesterAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1A3C143A13E708C400C47E0A /* OntologyTesterAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OntologyTesterAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1A3C143D13E708C400C47E0A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1A4AE41313EC60AA000E38CE /* NSTableView+TDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTableView+TDExtensions.h"; sourceTree = "<group>"; };
+		1A4AE41413EC60AA000E38CE /* NSTableView+TDExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTableView+TDExtensions.m"; sourceTree = "<group>"; };
 		1A4D473113E7F96C00318BCB /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MainController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1A4D473213E7F96C00318BCB /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MainController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1A5F3A2D13EBFBE800A344C1 /* DefaultNamespaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultNamespaces.h; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 			children = (
 				1AF9790713E97CD000E2D4E0 /* NSAlert-OAExtensions.h */,
 				1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */,
+				1A4AE41313EC60AA000E38CE /* NSTableView+TDExtensions.h */,
+				1A4AE41413EC60AA000E38CE /* NSTableView+TDExtensions.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				1A5F3A2F13EBFBE800A344C1 /* DefaultNamespaces.m in Sources */,
 				1A5F3A3313EBFF9F00A344C1 /* SparqlViewController.m in Sources */,
 				1A5F3A3713EC1ED000A344C1 /* URICache.m in Sources */,
+				1A4AE41513EC60AA000E38CE /* NSTableView+TDExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
