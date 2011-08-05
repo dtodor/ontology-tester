@@ -33,49 +33,16 @@
 
 #import "NamespacePrefixValueTransformer.h"
 #import "Statements.h"
+#import "DefaultNamespaces.h"
+#import "URICache.h"
 
 
-@implementation NamespacePrefixValueTransformer {
-    NSMutableDictionary *_namespaces;
-}
+@implementation NamespacePrefixValueTransformer
 
 @synthesize statements=_statements;
 
-- (void)initNamespaces {
-    [_namespaces removeAllObjects];
-    NSArray *namespaces = [[NSUserDefaults standardUserDefaults] arrayForKey:@"namespaces"];
-    for (NSDictionary *namespaceConfig in namespaces) {
-        if ([[namespaceConfig objectForKey:@"enabled"] boolValue]) {
-            NSString *namespace = [namespaceConfig objectForKey:@"namespace"];
-            NSString *prefix = [namespaceConfig objectForKey:@"prefix"];
-            [_namespaces setObject:prefix forKey:namespace];
-        }
-    }
-}
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        _namespaces = [[NSMutableDictionary alloc] init];
-        [self initNamespaces];
-        [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"namespaces" options:0 context:NULL];
-    }
-    return self;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"namespaces"]) {
-        [self initNamespaces];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
 - (void)dealloc {
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"namespaces"];
     [_statements release], _statements = nil;
-    [_namespaces release], _namespaces = nil;
 	[super dealloc];
 }
 
@@ -90,15 +57,33 @@
 - (id)transformedValue:(id)value {
     NSString *namespace = nil;
     NSString *localName = nil;
-    [_statements uriForAbbreviatedUri:(NSString *)value namespace:&namespace localName:&localName];
+    [_statements.uriCache uriForAbbreviatedUri:(NSString *)value namespace:&namespace localName:&localName];
     id retValue = value;
     if (namespace && localName) {
-        NSString *prefix = [_namespaces objectForKey:namespace];
+        NSString *prefix = [[DefaultNamespaces sharedDefaultNamespaces] prefixForNamespace:namespace onlyEnabled:YES];
         if (prefix) {
             retValue = [NSString stringWithFormat:@"%@:%@", prefix, localName];
         }
     }
     return retValue;
+}
+
+@end
+
+
+@implementation StringLengthValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSNumber class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return NO;
+}
+
+- (id)transformedValue:(id)value {
+    BOOL retValue = [(NSString *)value length] > 0;
+    return [NSNumber numberWithBool:retValue];
 }
 
 @end

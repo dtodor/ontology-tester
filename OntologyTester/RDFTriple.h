@@ -33,6 +33,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *uriForAbbreviatedUri(NSString *uri, NSString **namespace, NSString **localName, NSArray *namespaces);
+
 @interface RDFTriple : NSObject
 
 @property (nonatomic, copy) NSString *subject;

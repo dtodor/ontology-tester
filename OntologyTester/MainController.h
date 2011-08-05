@@ -33,28 +33,24 @@
 
 #import <Foundation/Foundation.h>
 
-@class Statements;
 @class Ontology;
+@class StatementsViewController;
+@class SparqlViewController;
 
 @interface MainController : NSObject {
+    StatementsViewController *_statementsViewController;
+    SparqlViewController *_sparqlViewController;
+    NSTabView *_tavBiew;
 }
 
-@property (nonatomic, retain) Statements *statements;
 @property (nonatomic, retain) Ontology *ontology;
 @property (assign) IBOutlet NSProgressIndicator *activityIndicator;
+@property (assign) IBOutlet StatementsViewController *statementsViewController;
+@property (assign) IBOutlet SparqlViewController *sparqlViewController;
+@property (assign) IBOutlet NSTabView *tabBiew;
 
-@property (nonatomic, copy) NSString *subjectNS;
-@property (nonatomic, copy) NSString *predicateNS;
-@property (nonatomic, copy) NSString *objectNS;
+@property (nonatomic) BOOL processing;
 
-@property (nonatomic, copy) NSString *subject;
-@property (nonatomic, copy) NSString *predicate;
-@property (nonatomic, copy) NSString *object;
-
-@property (nonatomic) BOOL filterResults;
-@property (nonatomic, retain) NSPredicate *filterPredicate;
-
-- (IBAction)performQuery:(id)sender;
 - (IBAction)refresh:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 

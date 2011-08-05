@@ -31,25 +31,19 @@
  *
  */
 
-#import "RDFTriple.h"
-#import "DefaultNamespaces.h"
+#import <Foundation/Foundation.h>
 
-@implementation RDFTriple
+@interface Solution : NSObject
 
-@synthesize subject=_subject;
-@synthesize predicate=_predicate;
-@synthesize object=_object;
-
-- (void)dealloc {
-    [_subject release], _subject = nil;
-    [_predicate release], _predicate = nil;
-    [_object release], _object = nil;
-    [super dealloc];
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"{%@ %@ %@}", _subject, _predicate, _object];
-}
+@property (nonatomic, retain) NSArray *values;
 
 @end
 
+@interface SparqlQuery : NSObject
+
+@property (nonatomic, copy) NSString *query;
+@property (nonatomic, retain) NSArray *variables;
+@property (nonatomic, retain) NSArray *namespaces;
+@property (nonatomic, retain) NSArray *solutions;
+
+@end

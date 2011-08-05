@@ -33,11 +33,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class URICache;
+
 @interface Statements : NSObject
 
 @property (nonatomic, retain) NSArray *namespaces;
 @property (nonatomic, retain) NSArray *triples;
 
-- (NSString *)uriForAbbreviatedUri:(NSString *)uri namespace:(NSString **)namespace localName:(NSString **)localName;
+@property (nonatomic, readonly) URICache *uriCache;
 
 @end

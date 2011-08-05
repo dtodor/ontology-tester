@@ -32,12 +32,15 @@
  */
 
 #import "OntologyTesterAppDelegate.h"
+#import <RestKit/RestKit.h>
 
 @implementation OntologyTesterAppDelegate
 
 @synthesize window=_window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    // RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelDebug);
+    // RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 }
 

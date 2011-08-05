@@ -32,41 +32,28 @@
  */
 
 #import "MainController.h"
-#import "RDFTriple.h"
-#import "Statements.h"
 #import "Ontology.h"
 #import <RestKit/RestKit.h>
 #import "PreferencesWindowController.h"
-#import "NSAlert-OAExtensions.h"
 #import "ErrorMessage.h"
 #import "NamespacePrefixValueTransformer.h"
+#import "SparqlQuery.h"
+#import "StatementsViewController.h"
+#import "Statements.h"
+#import "RDFTriple.h"
+#import "SparqlViewController.h"
 
-@interface MainController() <RKObjectLoaderDelegate, NSTabViewDelegate>
+@interface MainController() <RKObjectLoaderDelegate>
 @end
 
-typedef enum {
-    RequestType_Ontology,
-    RequestType_Statements
-} RequestType;
+@implementation MainController
 
-@implementation MainController {
-    RequestType _requestType;
-}
-
-@synthesize statements=_statements;
 @synthesize ontology=_ontology;
-
-@synthesize subject=_subject;
-@synthesize subjectNS=_subjectNS;
-@synthesize predicate=_predicate;
-@synthesize predicateNS=_predicateNS;
-@synthesize object=_object;
-@synthesize objectNS=_objectNS;
-
-@synthesize filterResults=_filterResults;
-@synthesize filterPredicate=_filterPredicate;
-
 @synthesize activityIndicator=_activityIndicator;
+@synthesize statementsViewController=_statementsViewController;
+@synthesize sparqlViewController=_sparqlViewController;
+@synthesize tabBiew=_tavBiew;
+@synthesize processing=_processing;
 
 + (void)initialize {
     if (self == [MainController class]) {
@@ -74,8 +61,17 @@ typedef enum {
         NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:path];
         [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
         
-        NamespacePrefixValueTransformer *transformer = [[NamespacePrefixValueTransformer alloc] init];
-        [NSValueTransformer setValueTransformer:transformer forName:@"NamespacePrefixValueTransformer"];
+        {
+            NamespacePrefixValueTransformer *transformer = [[NamespacePrefixValueTransformer alloc] init];
+            [NSValueTransformer setValueTransformer:transformer forName:@"NamespacePrefixValueTransformer"];
+            [transformer release];
+        }
+
+        {
+            StringLengthValueTransformer *transformer = [[StringLengthValueTransformer alloc] init];
+            [NSValueTransformer setValueTransformer:transformer forName:@"StringLengthValueTransformer"];
+            [transformer release];
+        }
     }
 }
 
@@ -101,37 +97,29 @@ typedef enum {
     RKObjectMapping *errorMessage = [RKObjectMapping mappingForClass:[ErrorMessage class]];
     [errorMessage mapAttributes:@"message", nil];
     
+    RKObjectMapping *solution = [RKObjectMapping mappingForClass:[Solution class]];
+    [solution mapAttributes:@"values", nil];
+    
+    RKObjectMapping *sparqlQuery = [RKObjectMapping mappingForClass:[SparqlQuery class]];
+    [sparqlQuery mapAttributes:@"query", @"variables", @"namespaces", nil];
+    [sparqlQuery hasMany:@"solutions" withMapping:solution];
+    
     // Register our mappings with the provider
     [objectManager.mappingProvider setMapping:rdfTriple forKeyPath:@"triple"];
     [objectManager.mappingProvider setMapping:statements forKeyPath:@"statements"];
     [objectManager.mappingProvider setMapping:ontology forKeyPath:@"ontology"];
     [objectManager.mappingProvider setMapping:errorMessage forKeyPath:@"errorMessage"];
+    [objectManager.mappingProvider setMapping:solution forKeyPath:@"solution"];
+    [objectManager.mappingProvider setMapping:sparqlQuery forKeyPath:@"sparqlQuery"];
     
-    [self addObserver:self forKeyPath:@"filterResults" options:0 context:NULL];
-    [self addObserver:self forKeyPath:@"statements" options:0 context:NULL];
+    [objectManager.router routeClass:[SparqlQuery class] toResourcePath:@"/query" forMethod:RKRequestMethodPOST];
+    
     [self addObserver:self forKeyPath:@"ontology" options:0 context:NULL];
+    [self addObserver:self forKeyPath:@"processing" options:0 context:NULL];
     [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"serverAddress" options:0 context:NULL];
-}
-
-- (NSPredicate *)buildFilterPredicate {
-    NSArray *filters = [[NSUserDefaults standardUserDefaults] arrayForKey:@"filters"];
-    NSMutableArray *enabledFilterPredicates = [NSMutableArray array];
-    [filters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSDictionary *filter = (NSDictionary *)obj;
-        if ([[filter objectForKey:@"enabled"] boolValue]) {
-            [enabledFilterPredicates addObject:[filter objectForKey:@"predicate"]];
-        }
-    }];
-    return [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        RDFTriple *triple = (RDFTriple *)evaluatedObject;
-        NSString *triplePredicateUri = [_statements uriForAbbreviatedUri:triple.predicate namespace:NULL localName:NULL];
-        for (NSString *predicate in enabledFilterPredicates) {
-            if ([triplePredicateUri rangeOfString:predicate].location != NSNotFound) {
-                return NO;
-            }
-        }
-        return YES;
-    }];
+    
+    [[_tavBiew tabViewItemAtIndex:0] setView:_statementsViewController.view];
+    [[_tavBiew tabViewItemAtIndex:1] setView:_sparqlViewController.view];
 }
 
 - (void)updateNamespacesConfiguration {
@@ -154,7 +142,7 @@ typedef enum {
     for (NSString *namespace in newNamespaces) {
         NSString *prefix = nil;
         while (true) {
-            prefix = [NSString stringWithFormat:@"_ns%d_", i++];
+            prefix = [NSString stringWithFormat:@"pfx_%d", i++];
             if (![namespacePrefixes containsObject:prefix]) {
                 [namespacePrefixes addObject:prefix];
                 break;
@@ -173,86 +161,34 @@ typedef enum {
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"filterResults"]) {
-        if (_filterResults) {
-            self.filterPredicate = [self buildFilterPredicate];
-        } else {
-            self.filterPredicate = nil;
-        }
-    } else if ([keyPath isEqualToString:@"serverAddress"]) {
+    if ([keyPath isEqualToString:@"serverAddress"]) {
         NSString *address = [[NSUserDefaults standardUserDefaults] stringForKey:@"serverAddress"];
         [[RKObjectManager sharedManager].client setBaseURL:address];
-    } else if ([keyPath isEqualToString:@"statements"]) {
-        NamespacePrefixValueTransformer *transformer = (NamespacePrefixValueTransformer *)[NSValueTransformer valueTransformerForName:@"NamespacePrefixValueTransformer"];
-        transformer.statements = self.statements;
     } else if ([keyPath isEqualToString:@"ontology"]) {
         [self updateNamespacesConfiguration];
+    } else if ([keyPath isEqualToString:@"processing"]) {
+        if (self.processing) {
+            [_activityIndicator setHidden:NO];
+            [_activityIndicator startAnimation:self];
+        } else {
+            [_activityIndicator stopAnimation:self];
+            [_activityIndicator setHidden:YES];
+        }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"filterResults"];
-    [self removeObserver:self forKeyPath:@"statements"];
     [self removeObserver:self forKeyPath:@"ontology"];
+    [self removeObserver:self forKeyPath:@"processing"];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"serverAddress"];
-    
-    [_statements dealloc], _statements = nil;
     [_ontology dealloc], _ontology = nil;
-    
-    [_subject release], _subject = nil;
-    [_subjectNS release], _subjectNS = nil;
-    [_predicate release], _predicate = nil;
-    [_predicateNS release], _predicateNS = nil;
-    [_object release], _object = nil;
-    [_objectNS release], _objectNS = nil;
-    
-    [_filterPredicate release], _filterPredicate = nil;
-    
     [super dealloc];
 }
 
-- (IBAction)performQuery:(id)sender {
-    NSMutableDictionary *queryParams = [NSMutableDictionary dictionary];
-    if ([_subject length] > 0) {
-        [queryParams setObject:[NSString stringWithFormat:@"%@%@", _subjectNS, _subject] forKey:@"subject"];
-    }
-    if ([_predicate length] > 0) {
-        [queryParams setObject:[NSString stringWithFormat:@"%@%@", _predicateNS, _predicate] forKey:@"predicate"];
-    }
-    if ([_object length] > 0) {
-        [queryParams setObject:[NSString stringWithFormat:@"%@%@", _objectNS, _object] forKey:@"object"];
-    }
-    NSString *path = @"/statements";
-    path = [path appendQueryParams:queryParams];
-    
-    void (^doQuery)() = ^{
-        [_activityIndicator setHidden:NO];
-        [_activityIndicator startAnimation:self];
-        
-        _requestType = RequestType_Statements;
-        RKObjectManager *objectManager = [RKObjectManager sharedManager];
-        [objectManager loadObjectsAtResourcePath:path delegate:self];
-    };
-    
-    if ([queryParams count] == 0) {
-        OABeginAlertSheet(@"No query", @"No", @"Yes", nil, 
-            [sender window], ^(NSAlert *alert, NSInteger code) {
-                  if (code == NSAlertSecondButtonReturn) {
-                      doQuery();
-                  }
-          }, @"No query has been specified. Would you like to retrieve all statements from the KB?");
-    } else {
-        doQuery();
-    }
-}
-
 - (IBAction)refresh:(id)sender {
-    [_activityIndicator setHidden:NO];
-    [_activityIndicator startAnimation:self];
-
-    _requestType = RequestType_Ontology;
+    self.processing = YES;
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
     [objectManager loadObjectsAtResourcePath:@"/ontology" delegate:self];
 }
@@ -278,55 +214,20 @@ typedef enum {
 #pragma mark -
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [_activityIndicator stopAnimation:self];
-    [_activityIndicator setHidden:YES];
+    self.processing = NO;
     NSLog(@"An error occurred: %@", [error localizedDescription]);
     NSAlert *alert = [NSAlert alertWithError:error];
     [alert beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:NULL];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    [_activityIndicator stopAnimation:self];
-    [_activityIndicator setHidden:YES];
+    self.processing = NO;
     if ([object isKindOfClass:[Ontology class]]) {
         Ontology *ontology = (Ontology *)object;
         self.ontology = ontology;
-        if ([ontology.namespaces count] > 0) {
-            NSString *defaultNamespace = [ontology.namespaces objectAtIndex:0];
-            self.subjectNS = defaultNamespace;
-            self.predicateNS = defaultNamespace;
-            self.objectNS = defaultNamespace;
-        } else {
-            self.subjectNS = nil;
-            self.predicateNS = nil;
-            self.objectNS = nil;
-        }
-    } else if ([object isKindOfClass:[Statements class]]) {
-        Statements *stmts = (Statements *)object;
-        self.statements = stmts;
     } else if (!object) {
-        switch (_requestType) {
-            case RequestType_Ontology:
-                self.ontology = nil;
-                self.statements = nil;
-                break;
-            case RequestType_Statements:
-                self.statements = nil;
-                break;
-            default:
-                break;
-        }
+        self.ontology = nil;
     }
-}
-
-#pragma mark -
-#pragma mark NSTabViewDelegate 
-#pragma mark -
-
-- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
-
-    NSString *uri = [_statements uriForAbbreviatedUri:[aCell stringValue] namespace:NULL localName:NULL];
-    return uri;
 }
 
 @end

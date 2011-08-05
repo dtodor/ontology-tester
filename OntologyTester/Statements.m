@@ -33,33 +33,39 @@
 
 #import "Statements.h"
 #import "RDFTriple.h"
+#import "DefaultNamespaces.h"
+#import "URICache.h"
 
-@implementation Statements {
-    NSMutableDictionary *_uriCache;
-    NSMutableDictionary *_namespaceCache;
-    NSMutableDictionary *_localNameCache;
-}
+@implementation Statements
 
 @synthesize namespaces=_namespaces;
 @synthesize triples=_triples;
+@synthesize uriCache=_uriCache;
 
 - (id)init {
     self = [super init];
     if (self) {
-        _uriCache = [[NSMutableDictionary dictionary] retain];
-        _namespaceCache = [[NSMutableDictionary dictionary] retain];
-        _localNameCache = [[NSMutableDictionary dictionary] retain];
+        [self addObserver:self forKeyPath:@"namespaces" options:0 context:NULL];
     }
     return self;
 }
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"namespaces"];
+    
     [_namespaces release], _namespaces = nil;
     [_triples release], _triples = nil;
     [_uriCache release], _uriCache = nil;
-    [_namespaceCache release], _namespaceCache = nil;
-    [_localNameCache release], _localNameCache = nil;
     [super dealloc];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"namespaces"]) {
+        [_uriCache release];
+        _uriCache = [[URICache alloc] initWithNamespaces:_namespaces];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (NSString *)description {
@@ -73,46 +79,6 @@
         descr = [descr stringByAppendingString:[NSString stringWithFormat:@"\t%@\n", triple]];
     }
     return descr;
-}
-
-- (NSString *)uriForAbbreviatedUri:(NSString *)uri namespace:(NSString **)namespace localName:(NSString **)localName {
-    
-    NSString *cached = [_uriCache objectForKey:uri];
-    if (cached) {
-        if (namespace) {
-            *namespace = [_namespaceCache objectForKey:uri];
-        }
-        if (localName) {
-            *localName = [_localNameCache objectForKey:uri];
-        }
-        return cached;
-    }
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"ns([0-9]+):(.+)"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
-    NSAssert(regex, @"Unable to create regular expression");
-    NSArray *matches = [regex matchesInString:uri options:0 range:NSMakeRange(0, [uri length])];
-    NSString *retValue = uri;
-    if ([matches count] == 1) {
-        NSTextCheckingResult *match = [matches objectAtIndex:0];
-        NSUInteger index = [[regex replacementStringForResult:match inString:uri offset:0 template:@"$1"] integerValue];
-        NSString *ln = [regex replacementStringForResult:match inString:uri offset:0 template:@"$2"];
-        if (localName) {
-            *localName = ln;
-            [_localNameCache setObject:ln forKey:uri];
-        }
-        if (index < [_namespaces count]) {
-            NSString *ns = [_namespaces objectAtIndex:index];
-            retValue = [NSString stringWithFormat:@"%@%@", ns, ln];
-            if (namespace) {
-                *namespace = ns;
-            }
-            [_namespaceCache setObject:ns forKey:uri];
-        }
-    }
-    [_uriCache setObject:retValue forKey:uri];
-    return retValue;
 }
 
 @end

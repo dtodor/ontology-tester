@@ -41,3 +41,6 @@
 @property (nonatomic, retain) Statements *statements;
 
 @end
+
+@interface StringLengthValueTransformer : NSValueTransformer
+@end
