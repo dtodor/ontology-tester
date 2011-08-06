@@ -8,12 +8,16 @@
 	<array>
 		<dict>
 			<key>predicate</key>
+			<true/>
+			<key>uri</key>
 			<string>http://www.w3.org/2002/07/owl#topObjectProperty</string>
 			<key>enabled</key>
 			<true/>
 		</dict>
 		<dict>
 			<key>predicate</key>
+			<true/>
+			<key>uri</key>
 			<string>http://www.w3.org/2002/07/owl#differentFrom</string>
 			<key>enabled</key>
 			<true/>

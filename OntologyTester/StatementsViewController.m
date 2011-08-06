@@ -69,19 +69,43 @@
 
 - (NSPredicate *)buildFilterPredicate {
     NSArray *filters = [[NSUserDefaults standardUserDefaults] arrayForKey:@"filters"];
-    NSMutableArray *enabledFilterPredicates = [NSMutableArray array];
+    NSMutableArray *enabledFilters = [NSMutableArray array];
     [filters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSDictionary *filter = (NSDictionary *)obj;
         if ([[filter objectForKey:@"enabled"] boolValue]) {
-            [enabledFilterPredicates addObject:[filter objectForKey:@"predicate"]];
+            [enabledFilters addObject:filter];
         }
     }];
     return [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         RDFTriple *triple = (RDFTriple *)evaluatedObject;
-        NSString *triplePredicateUri = [_statements.uriCache uriForAbbreviatedUri:triple.predicate namespace:NULL localName:NULL];
-        for (NSString *predicate in enabledFilterPredicates) {
-            if ([triplePredicateUri rangeOfString:predicate].location != NSNotFound) {
-                return NO;
+        NSString *tripleSubjectUri = nil;
+        NSString *triplePredicateUri = nil;
+        NSString *tripleObjectUri = nil;
+        for (NSDictionary *filter in enabledFilters) {
+            NSString *filteredUri = [filter objectForKey:@"uri"];
+            if ([[filter objectForKey:@"subject"] boolValue]) {
+                if (!tripleSubjectUri) {
+                    tripleSubjectUri = [_statements.uriCache uriForAbbreviatedUri:triple.subject namespace:NULL localName:NULL];
+                }
+                if ([tripleSubjectUri rangeOfString:filteredUri].location != NSNotFound) {
+                    return NO;
+                }
+            }
+            if ([[filter objectForKey:@"predicate"] boolValue]) {
+                if (!triplePredicateUri) {
+                    triplePredicateUri = [_statements.uriCache uriForAbbreviatedUri:triple.predicate namespace:NULL localName:NULL];
+                }
+                if ([triplePredicateUri rangeOfString:filteredUri].location != NSNotFound) {
+                    return NO;
+                }
+            }
+            if ([[filter objectForKey:@"object"] boolValue]) {
+                if (!tripleObjectUri) {
+                    tripleObjectUri = [_statements.uriCache uriForAbbreviatedUri:triple.object namespace:NULL localName:NULL];
+                }
+                if ([tripleObjectUri rangeOfString:filteredUri].location != NSNotFound) {
+                    return NO;
+                }
             }
         }
         return YES;
@@ -196,11 +220,74 @@
     return uri;
 }
 
+typedef enum {
+    SelectAction_Subject,
+    SelectAction_Predicate,
+    SelectAction_Object
+} SelectAction;
+
+- (void)selectSubjectPredicateObject:(NSMenuItem *)item {
+    NSDictionary *representedObject = [item representedObject];
+    NSString *ns = [representedObject objectForKey:@"namespace"];
+    NSString *ln = [representedObject objectForKey:@"localName"];
+    SelectAction action = (SelectAction)[item tag];
+    switch (action) {
+        case SelectAction_Subject:
+            self.subjectNS = ns;
+            self.subject = ln;
+            break;
+        case SelectAction_Predicate:
+            self.predicateNS = ns;
+            self.predicate = ln;
+            break;
+        case SelectAction_Object:
+            self.objectNS = ns;
+            self.object = ln;
+            break;
+        default:
+            break;
+    }
+}
+
 - (NSMenu *)tableView:(NSTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
     [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
     NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
-    NSString *uri = [_statements.uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
-    return [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
+    
+    NSString *ns = nil;
+    NSString *ln = nil;
+    NSString *uri = [_statements.uriCache uriForAbbreviatedUri:stringValue namespace:&ns localName:&ln];
+    NSMenu *menu = [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
+    
+    if (ns && [_mainController.ontology.namespaces containsObject:ns]) {
+        [menu addItem:[NSMenuItem separatorItem]];
+        NSDictionary *representedObject = [NSDictionary dictionaryWithKeysAndObjects:@"namespace", ns, @"localName", ln, nil];
+        {
+            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Subject" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+            [item setTag:SelectAction_Subject];
+            [item setRepresentedObject:representedObject];
+            [item setTarget:self];
+            [menu addItem:item];
+            [item release];
+        }
+        {
+            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Predicate" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+            [item setTag:SelectAction_Predicate];
+            [item setRepresentedObject:representedObject];
+            [item setTarget:self];
+            [menu addItem:item];
+            [item release];
+        }
+        {
+            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Object" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+            [item setTag:SelectAction_Object];
+            [item setRepresentedObject:representedObject];
+            [item setTarget:self];
+            [menu addItem:item];
+            [item release];
+        }
+    }
+    
+    return menu;
 }
 
 @end
