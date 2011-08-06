@@ -44,3 +44,6 @@
 
 @interface StringLengthValueTransformer : NSValueTransformer
 @end
+
+@interface ArraySizeValueTransformer : NSValueTransformer
+@end

@@ -37,5 +37,6 @@
 
 @property (nonatomic, retain) NSArray *namespaces;
 @property (nonatomic, copy) NSString *uri;
+@property (nonatomic, retain) NSArray *predefinedQueries;
 
 @end

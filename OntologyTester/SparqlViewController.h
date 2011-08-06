@@ -34,6 +34,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class MainController;
+@class SparqlQuery;
 
 @interface SparqlViewController : NSViewController {
 }
@@ -43,7 +44,10 @@
 @property (nonatomic, retain) NSFont *font;
 @property (assign) IBOutlet NSTableView *resultsTable;
 
+@property (nonatomic, retain) SparqlQuery *predefinedQuery;
+
 - (IBAction)performQuery:(id)sender;
 - (IBAction)populateNamespaces:(id)sender;
+- (IBAction)loadPredefinedQuery:(id)sender;
 
 @end

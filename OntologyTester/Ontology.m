@@ -37,10 +37,12 @@
 
 @synthesize namespaces=_namespaces;
 @synthesize uri=_uri;
+@synthesize predefinedQueries=_predefinedQueries;
 
 - (void)dealloc {
     [_namespaces release], _namespaces = nil;
     [_uri release], _uri = nil;
+    [_predefinedQueries release], _predefinedQueries = nil;
     [super dealloc];
 }
 

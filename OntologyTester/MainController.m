@@ -66,10 +66,16 @@
             [NSValueTransformer setValueTransformer:transformer forName:@"NamespacePrefixValueTransformer"];
             [transformer release];
         }
-
+        
         {
             StringLengthValueTransformer *transformer = [[StringLengthValueTransformer alloc] init];
             [NSValueTransformer setValueTransformer:transformer forName:@"StringLengthValueTransformer"];
+            [transformer release];
+        }
+        
+        {
+            ArraySizeValueTransformer *transformer = [[ArraySizeValueTransformer alloc] init];
+            [NSValueTransformer setValueTransformer:transformer forName:@"ArraySizeValueTransformer"];
             [transformer release];
         }
     }
@@ -91,18 +97,19 @@
     [statements mapAttributes:@"namespaces", nil];
     [statements hasMany:@"triples" withMapping:rdfTriple];
     
-    RKObjectMapping *ontology = [RKObjectMapping mappingForClass:[Ontology class]];
-    [ontology mapAttributes:@"namespaces", @"uri", nil];
-    
-    RKObjectMapping *errorMessage = [RKObjectMapping mappingForClass:[ErrorMessage class]];
-    [errorMessage mapAttributes:@"message", nil];
-    
     RKObjectMapping *solution = [RKObjectMapping mappingForClass:[Solution class]];
     [solution mapAttributes:@"values", nil];
     
     RKObjectMapping *sparqlQuery = [RKObjectMapping mappingForClass:[SparqlQuery class]];
-    [sparqlQuery mapAttributes:@"query", @"variables", @"namespaces", nil];
+    [sparqlQuery mapAttributes:@"query", @"name", @"variables", @"namespaces", nil];
     [sparqlQuery hasMany:@"solutions" withMapping:solution];
+    
+    RKObjectMapping *ontology = [RKObjectMapping mappingForClass:[Ontology class]];
+    [ontology mapAttributes:@"namespaces", @"uri", nil];
+    [ontology hasMany:@"predefinedQueries" withMapping:sparqlQuery];
+    
+    RKObjectMapping *errorMessage = [RKObjectMapping mappingForClass:[ErrorMessage class]];
+    [errorMessage mapAttributes:@"message", nil];
     
     // Register our mappings with the provider
     [objectManager.mappingProvider setMapping:rdfTriple forKeyPath:@"triple"];

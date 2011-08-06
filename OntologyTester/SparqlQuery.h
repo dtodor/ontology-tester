@@ -42,6 +42,7 @@
 @interface SparqlQuery : NSObject
 
 @property (nonatomic, copy) NSString *query;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, retain) NSArray *variables;
 @property (nonatomic, retain) NSArray *namespaces;
 @property (nonatomic, retain) NSArray *solutions;

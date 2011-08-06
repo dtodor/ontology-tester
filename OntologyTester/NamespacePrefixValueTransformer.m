@@ -87,3 +87,21 @@
 }
 
 @end
+
+
+@implementation ArraySizeValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSNumber class];
+}
+
++ (BOOL)allowsReverseTransformation {
+    return NO;
+}
+
+- (id)transformedValue:(id)value {
+    BOOL retValue = [(NSArray *)value count] > 0;
+    return [NSNumber numberWithBool:retValue];
+}
+
+@end

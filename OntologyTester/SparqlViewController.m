@@ -40,6 +40,7 @@
 #import "DefaultNamespaces.h"
 #import "URICache.h"
 #import "NSTableView+TDExtensions.h"
+#import "Ontology.h"
 
 @interface SparqlViewController() <RKObjectLoaderDelegate, NSTableViewDataSource, TDTableViewDelegate>
 
@@ -57,18 +58,34 @@
 @synthesize font=_font;
 @synthesize resultsTable=_resultsTable;
 @synthesize result=_result;
+@synthesize predefinedQuery=_predefinedQuery;
 
 - (void)dealloc {
     [_queryString release], _queryString = nil;
     [_font release], _font = nil;
     [_result release], _result = nil;
     [_uriCache release], _uriCache = nil;
+    [_predefinedQuery release], _predefinedQuery = nil;
     [super dealloc];
 }
 
 - (void)awakeFromNib {
     self.font = [NSFont systemFontOfSize:10.0];
     [self populateNamespaces:self];
+    [_mainController addObserver:self forKeyPath:@"ontology" options:0 context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"ontology"]) {
+        NSArray *queries = _mainController.ontology.predefinedQueries;
+        if ([queries count] > 0) {
+            self.predefinedQuery = [queries objectAtIndex:0];
+        } else {
+            self.predefinedQuery = nil;
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (IBAction)performQuery:(id)sender {
@@ -104,6 +121,10 @@
         [preloadedPrefixes appendFormat:@"PREFIX %@: <%@>\n", prefix, namespace];
     }
     self.queryString = preloadedPrefixes;
+}
+
+- (IBAction)loadPredefinedQuery:(id)sender {
+    self.queryString = self.predefinedQuery.query;
 }
 
 - (void)populateResults {

@@ -263,8 +263,6 @@
 			children = (
 				1A5F3A3913EC261200A344C1 /* Helpers */,
 				1A5F3A3813EC25D100A344C1 /* Model */,
-				1A01CA4113EAD7B800AC65CE /* NamespacePrefixValueTransformer.h */,
-				1A01CA4213EAD7B800AC65CE /* NamespacePrefixValueTransformer.m */,
 				1A3C143913E708C400C47E0A /* OntologyTesterAppDelegate.h */,
 				1A3C143A13E708C400C47E0A /* OntologyTesterAppDelegate.m */,
 				1A3C143C13E708C400C47E0A /* MainMenu.xib */,
@@ -322,6 +320,8 @@
 		1A5F3A3913EC261200A344C1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1A01CA4113EAD7B800AC65CE /* NamespacePrefixValueTransformer.h */,
+				1A01CA4213EAD7B800AC65CE /* NamespacePrefixValueTransformer.m */,
 				1AF9790713E97CD000E2D4E0 /* NSAlert-OAExtensions.h */,
 				1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */,
 				1A4AE41313EC60AA000E38CE /* NSTableView+TDExtensions.h */,

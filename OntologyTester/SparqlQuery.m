@@ -47,12 +47,14 @@
 @implementation SparqlQuery
 
 @synthesize query=_query;
+@synthesize name=_name;
 @synthesize variables=_variables;
 @synthesize namespaces=_namespaces;
 @synthesize solutions=_solutions;
 
 - (void)dealloc {
     [_query release], _query = nil;
+    [_name release], _name = nil;
     [_variables release], _variables = nil;
     [_namespaces release], _namespaces = nil;
     [_solutions release], _solutions = nil;
