@@ -160,13 +160,25 @@
 - (IBAction)performQuery:(id)sender {
     NSMutableDictionary *queryParams = [NSMutableDictionary dictionary];
     if ([_subject length] > 0) {
-        [queryParams setObject:[NSString stringWithFormat:@"%@%@", _subjectNS, _subject] forKey:@"subject"];
+        if ([_subjectNS length] > 0) {
+            [queryParams setObject:[NSString stringWithFormat:@"%@%@", _subjectNS, _subject] forKey:@"subject"];
+        } else {
+            [queryParams setObject:[NSString stringWithFormat:@"%@", _subject] forKey:@"subject"];
+        }
     }
     if ([_predicate length] > 0) {
-        [queryParams setObject:[NSString stringWithFormat:@"%@%@", _predicateNS, _predicate] forKey:@"predicate"];
+        if ([_predicateNS length] > 0) {
+            [queryParams setObject:[NSString stringWithFormat:@"%@%@", _predicateNS, _predicate] forKey:@"predicate"];
+        } else {
+            [queryParams setObject:[NSString stringWithFormat:@"%@", _predicate] forKey:@"predicate"];
+        }
     }
     if ([_object length] > 0) {
-        [queryParams setObject:[NSString stringWithFormat:@"%@%@", _objectNS, _object] forKey:@"object"];
+        if ([_objectNS length] > 0) {
+            [queryParams setObject:[NSString stringWithFormat:@"%@%@", _objectNS, _object] forKey:@"object"];
+        } else {
+            [queryParams setObject:[NSString stringWithFormat:@"%@", _object] forKey:@"object"];
+        }
     }
     NSString *path = @"/statements";
     path = [path appendQueryParams:queryParams];
@@ -258,33 +270,37 @@ typedef enum {
     NSString *uri = [_statements.uriCache uriForAbbreviatedUri:stringValue namespace:&ns localName:&ln];
     NSMenu *menu = [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
     
-    if (ns && [_mainController.ontology.namespaces containsObject:ns]) {
-        [menu addItem:[NSMenuItem separatorItem]];
-        NSDictionary *representedObject = [NSDictionary dictionaryWithKeysAndObjects:@"namespace", ns, @"localName", ln, nil];
-        {
-            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Subject" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
-            [item setTag:SelectAction_Subject];
-            [item setRepresentedObject:representedObject];
-            [item setTarget:self];
-            [menu addItem:item];
-            [item release];
-        }
-        {
-            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Predicate" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
-            [item setTag:SelectAction_Predicate];
-            [item setRepresentedObject:representedObject];
-            [item setTarget:self];
-            [menu addItem:item];
-            [item release];
-        }
-        {
-            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Object" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
-            [item setTag:SelectAction_Object];
-            [item setRepresentedObject:representedObject];
-            [item setTarget:self];
-            [menu addItem:item];
-            [item release];
-        }
+    [menu addItem:[NSMenuItem separatorItem]];
+    NSMutableDictionary *representedObject = [NSMutableDictionary dictionary];
+    if (ns) {
+        [representedObject setObject:ns forKey:@"namespace"];
+        [representedObject setObject:ln forKey:@"localName"];
+    } else {
+        [representedObject setObject:uri forKey:@"localName"];
+    }
+    {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Subject" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        [item setTag:SelectAction_Subject];
+        [item setRepresentedObject:representedObject];
+        [item setTarget:self];
+        [menu addItem:item];
+        [item release];
+    }
+    {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Predicate" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        [item setTag:SelectAction_Predicate];
+        [item setRepresentedObject:representedObject];
+        [item setTarget:self];
+        [menu addItem:item];
+        [item release];
+    }
+    {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Object" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        [item setTag:SelectAction_Object];
+        [item setRepresentedObject:representedObject];
+        [item setTarget:self];
+        [menu addItem:item];
+        [item release];
     }
     
     return menu;

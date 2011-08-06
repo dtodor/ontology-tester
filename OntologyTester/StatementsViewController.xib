@@ -695,6 +695,7 @@
 								<string key="NSFrame">{{1, 225}, {658, 15}}</string>
 								<reference key="NSSuperview" ref="968860843"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:1216</string>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="968860843"/>
@@ -849,105 +850,6 @@
 						</object>
 					</object>
 					<int key="connectionID">471</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">content: arrangedObjects</string>
-						<reference key="source" ref="1060259814"/>
-						<reference key="destination" ref="890845080"/>
-						<object class="NSNibBindingConnector" key="connector" id="841045767">
-							<reference key="NSSource" ref="1060259814"/>
-							<reference key="NSDestination" ref="890845080"/>
-							<string key="NSLabel">content: arrangedObjects</string>
-							<string key="NSBinding">content</string>
-							<string key="NSKeyPath">arrangedObjects</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">472</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">content: arrangedObjects</string>
-						<reference key="source" ref="31702303"/>
-						<reference key="destination" ref="890845080"/>
-						<object class="NSNibBindingConnector" key="connector" id="952360814">
-							<reference key="NSSource" ref="31702303"/>
-							<reference key="NSDestination" ref="890845080"/>
-							<string key="NSLabel">content: arrangedObjects</string>
-							<string key="NSBinding">content</string>
-							<string key="NSKeyPath">arrangedObjects</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">473</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">content: arrangedObjects</string>
-						<reference key="source" ref="96340390"/>
-						<reference key="destination" ref="890845080"/>
-						<object class="NSNibBindingConnector" key="connector" id="969211483">
-							<reference key="NSSource" ref="96340390"/>
-							<reference key="NSDestination" ref="890845080"/>
-							<string key="NSLabel">content: arrangedObjects</string>
-							<string key="NSBinding">content</string>
-							<string key="NSKeyPath">arrangedObjects</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">474</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: subjectNS</string>
-						<reference key="source" ref="1060259814"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1060259814"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: subjectNS</string>
-							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">subjectNS</string>
-							<reference key="NSPreviousConnector" ref="841045767"/>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">476</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: predicateNS</string>
-						<reference key="source" ref="31702303"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="31702303"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: predicateNS</string>
-							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">predicateNS</string>
-							<reference key="NSPreviousConnector" ref="952360814"/>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">478</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: objectNS</string>
-						<reference key="source" ref="96340390"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="96340390"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: objectNS</string>
-							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">objectNS</string>
-							<reference key="NSPreviousConnector" ref="969211483"/>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">480</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1228,6 +1130,117 @@
 						</object>
 					</object>
 					<int key="connectionID">533</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">content: arrangedObjects</string>
+						<reference key="source" ref="31702303"/>
+						<reference key="destination" ref="890845080"/>
+						<object class="NSNibBindingConnector" key="connector" id="829378157">
+							<reference key="NSSource" ref="31702303"/>
+							<reference key="NSDestination" ref="890845080"/>
+							<string key="NSLabel">content: arrangedObjects</string>
+							<string key="NSBinding">content</string>
+							<string key="NSKeyPath">arrangedObjects</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSInsertsNullPlaceholder</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">534</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedObject: predicateNS</string>
+						<reference key="source" ref="31702303"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="31702303"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">selectedObject: predicateNS</string>
+							<string key="NSBinding">selectedObject</string>
+							<string key="NSKeyPath">predicateNS</string>
+							<reference key="NSPreviousConnector" ref="829378157"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">535</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">content: arrangedObjects</string>
+						<reference key="source" ref="1060259814"/>
+						<reference key="destination" ref="890845080"/>
+						<object class="NSNibBindingConnector" key="connector" id="623330330">
+							<reference key="NSSource" ref="1060259814"/>
+							<reference key="NSDestination" ref="890845080"/>
+							<string key="NSLabel">content: arrangedObjects</string>
+							<string key="NSBinding">content</string>
+							<string key="NSKeyPath">arrangedObjects</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSInsertsNullPlaceholder</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">536</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedObject: subjectNS</string>
+						<reference key="source" ref="1060259814"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1060259814"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">selectedObject: subjectNS</string>
+							<string key="NSBinding">selectedObject</string>
+							<string key="NSKeyPath">subjectNS</string>
+							<reference key="NSPreviousConnector" ref="623330330"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">537</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">content: arrangedObjects</string>
+						<reference key="source" ref="96340390"/>
+						<reference key="destination" ref="890845080"/>
+						<object class="NSNibBindingConnector" key="connector" id="768191132">
+							<reference key="NSSource" ref="96340390"/>
+							<reference key="NSDestination" ref="890845080"/>
+							<string key="NSLabel">content: arrangedObjects</string>
+							<string key="NSBinding">content</string>
+							<string key="NSKeyPath">arrangedObjects</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSInsertsNullPlaceholder</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">538</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedObject: objectNS</string>
+						<reference key="source" ref="96340390"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="96340390"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">selectedObject: objectNS</string>
+							<string key="NSBinding">selectedObject</string>
+							<string key="NSKeyPath">objectNS</string>
+							<reference key="NSPreviousConnector" ref="768191132"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">539</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2466,7 +2479,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">533</int>
+			<int key="maxID">539</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2489,6 +2502,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="activityIndicator">NSProgressIndicator</string>
+						<string key="sparqlViewController">SparqlViewController</string>
 						<string key="statementsViewController">StatementsViewController</string>
 						<string key="tabBiew">NSTabView</string>
 					</dictionary>
@@ -2496,6 +2510,10 @@
 						<object class="IBToOneOutletInfo" key="activityIndicator">
 							<string key="name">activityIndicator</string>
 							<string key="candidateClassName">NSProgressIndicator</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="sparqlViewController">
+							<string key="name">sparqlViewController</string>
+							<string key="candidateClassName">SparqlViewController</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="statementsViewController">
 							<string key="name">statementsViewController</string>
@@ -2517,6 +2535,47 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SparqlViewController</string>
+					<string key="superclassName">NSViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="loadPredefinedQuery:">id</string>
+						<string key="performQuery:">id</string>
+						<string key="populateNamespaces:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="loadPredefinedQuery:">
+							<string key="name">loadPredefinedQuery:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="performQuery:">
+							<string key="name">performQuery:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="populateNamespaces:">
+							<string key="name">populateNamespaces:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="mainController">MainController</string>
+						<string key="resultsTable">NSTableView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="mainController">
+							<string key="name">mainController</string>
+							<string key="candidateClassName">MainController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="resultsTable">
+							<string key="name">resultsTable</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SparqlViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
