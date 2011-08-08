@@ -233,16 +233,23 @@
 }
 
 typedef enum {
-    SelectAction_Subject,
-    SelectAction_Predicate,
-    SelectAction_Object
+    SelectAction_Subject = 0x01,
+    SelectAction_Predicate = 0x02,
+    SelectAction_Object = 0x03,
+    SelectAction_ClearRest = 0x04
 } SelectAction;
 
 - (void)selectSubjectPredicateObject:(NSMenuItem *)item {
     NSDictionary *representedObject = [item representedObject];
     NSString *ns = [representedObject objectForKey:@"namespace"];
     NSString *ln = [representedObject objectForKey:@"localName"];
-    SelectAction action = (SelectAction)[item tag];
+    NSInteger tag = [item tag];
+    if ((tag & SelectAction_ClearRest) == SelectAction_ClearRest) {
+        self.subject = nil;
+        self.predicate = nil;
+        self.object = nil;
+    }
+    SelectAction action = (SelectAction)([item tag] & SelectAction_Object);
     switch (action) {
         case SelectAction_Subject:
             self.subjectNS = ns;
@@ -262,6 +269,7 @@ typedef enum {
 }
 
 - (NSMenu *)tableView:(NSTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
+
     [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
     NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
     
@@ -279,28 +287,55 @@ typedef enum {
         [representedObject setObject:uri forKey:@"localName"];
     }
     {
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Subject" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select As Subject" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
         [item setTag:SelectAction_Subject];
         [item setRepresentedObject:representedObject];
         [item setTarget:self];
         [menu addItem:item];
         [item release];
+
+        NSMenuItem *itemAlt = [[NSMenuItem alloc] initWithTitle:@"Select As Subject And Clear Rest" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        [itemAlt setTag:SelectAction_Subject|SelectAction_ClearRest];
+        [itemAlt setAlternate:YES];
+        [itemAlt setKeyEquivalentModifierMask:NSAlternateKeyMask];
+        [itemAlt setRepresentedObject:representedObject];
+        [itemAlt setTarget:self];
+        [menu addItem:itemAlt];
+        [itemAlt release];
     }
     {
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Predicate" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select As Predicate" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
         [item setTag:SelectAction_Predicate];
         [item setRepresentedObject:representedObject];
         [item setTarget:self];
         [menu addItem:item];
         [item release];
+        
+        NSMenuItem *itemAlt = [[NSMenuItem alloc] initWithTitle:@"Select As Predicate And Clear Rest" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        [itemAlt setTag:SelectAction_Predicate|SelectAction_ClearRest];
+        [itemAlt setAlternate:YES];
+        [itemAlt setKeyEquivalentModifierMask:NSAlternateKeyMask];
+        [itemAlt setRepresentedObject:representedObject];
+        [itemAlt setTarget:self];
+        [menu addItem:itemAlt];
+        [itemAlt release];
     }
     {
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select as Object" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select As Object" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
         [item setTag:SelectAction_Object];
         [item setRepresentedObject:representedObject];
         [item setTarget:self];
         [menu addItem:item];
         [item release];
+        
+        NSMenuItem *itemAlt = [[NSMenuItem alloc] initWithTitle:@"Select As Object And Clear Rest" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
+        [itemAlt setTag:SelectAction_Object|SelectAction_ClearRest];
+        [itemAlt setAlternate:YES];
+        [itemAlt setKeyEquivalentModifierMask:NSAlternateKeyMask];
+        [itemAlt setRepresentedObject:representedObject];
+        [itemAlt setTarget:self];
+        [menu addItem:itemAlt];
+        [itemAlt release];
     }
     
     return menu;

@@ -36,7 +36,8 @@
 @class Statements;
 @class MainController;
 
-@interface StatementsViewController : NSViewController
+@interface StatementsViewController : NSViewController {
+}
 
 @property (nonatomic, retain) Statements *statements;
 
@@ -54,5 +55,6 @@
 @property (assign) IBOutlet MainController *mainController;
 
 - (IBAction)performQuery:(id)sender;
+- (IBAction)copyUri:(id)sender;
 
 @end
