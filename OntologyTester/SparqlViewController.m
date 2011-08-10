@@ -135,6 +135,7 @@
     if (!_result) {
         return;
     }
+    [_resultsTable setColumnAutoresizingStyle:NSTableViewUniformColumnAutoresizingStyle];
     for (NSString *variable in _result.variables) {
         NSTableColumn *varColumn = [[NSTableColumn alloc] initWithIdentifier:variable];
         [[varColumn headerCell] setStringValue:variable];
@@ -142,6 +143,24 @@
         [varColumn release];
     }
     [_resultsTable reloadData];
+    columns = [_resultsTable tableColumns];
+    NSUInteger numberOfRows = [_result.solutions count];
+    if (numberOfRows > 0) {
+        for (NSTableColumn *column in columns) {
+            NSUInteger columnIndex = [_resultsTable columnWithIdentifier:[column identifier]];
+            CGFloat width = 0;
+            for (NSUInteger row = 0; row < numberOfRows; row++) {
+                NSCell *cell = [_resultsTable preparedCellAtColumn:columnIndex row:row];
+                CGFloat cellWidth = [cell cellSize].width;
+                if (cellWidth > width) {
+                    width = cellWidth;
+                }
+            }
+            if (width > 0) {
+                [column setWidth:width];
+            }
+        }
+    }
 }
 
 #pragma mark -

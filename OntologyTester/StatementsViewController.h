@@ -55,6 +55,5 @@
 @property (assign) IBOutlet MainController *mainController;
 
 - (IBAction)performQuery:(id)sender;
-- (IBAction)copyUri:(id)sender;
 
 @end
