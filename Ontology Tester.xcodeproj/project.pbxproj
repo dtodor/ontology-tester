@@ -34,6 +34,7 @@
 		1A5F3A3313EBFF9F00A344C1 /* SparqlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5F3A3113EBFF9F00A344C1 /* SparqlViewController.m */; };
 		1A5F3A3413EBFF9F00A344C1 /* SparqlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A5F3A3213EBFF9F00A344C1 /* SparqlViewController.xib */; };
 		1A5F3A3713EC1ED000A344C1 /* URICache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5F3A3613EC1ECF00A344C1 /* URICache.m */; };
+		1A6F4BE213F2E6FF00B4F331 /* RestKitHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6F4BE113F2E6FF00B4F331 /* RestKitHelpers.m */; };
 		1AA2585D13EB176500392607 /* SparqlQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2585C13EB176500392607 /* SparqlQuery.m */; };
 		1AC8A5C913EBDFF5009EFF26 /* StatementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC8A5C713EBDFF5009EFF26 /* StatementsViewController.m */; };
 		1AC8A5CA13EBDFF5009EFF26 /* StatementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC8A5C813EBDFF5009EFF26 /* StatementsViewController.xib */; };
@@ -171,6 +172,8 @@
 		1A5F3A3213EBFF9F00A344C1 /* SparqlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SparqlViewController.xib; sourceTree = "<group>"; };
 		1A5F3A3513EC1ECF00A344C1 /* URICache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URICache.h; sourceTree = "<group>"; };
 		1A5F3A3613EC1ECF00A344C1 /* URICache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URICache.m; sourceTree = "<group>"; };
+		1A6F4BE013F2E6FF00B4F331 /* RestKitHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestKitHelpers.h; sourceTree = "<group>"; };
+		1A6F4BE113F2E6FF00B4F331 /* RestKitHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestKitHelpers.m; sourceTree = "<group>"; };
 		1AA2585B13EB176500392607 /* SparqlQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparqlQuery.h; sourceTree = "<group>"; };
 		1AA2585C13EB176500392607 /* SparqlQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparqlQuery.m; sourceTree = "<group>"; };
 		1AC8A5C613EBDFF5009EFF26 /* StatementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatementsViewController.h; sourceTree = "<group>"; };
@@ -326,6 +329,8 @@
 				1AF9790813E97CD000E2D4E0 /* NSAlert-OAExtensions.m */,
 				1A4AE41313EC60AA000E38CE /* NSTableView+TDExtensions.h */,
 				1A4AE41413EC60AA000E38CE /* NSTableView+TDExtensions.m */,
+				1A6F4BE013F2E6FF00B4F331 /* RestKitHelpers.h */,
+				1A6F4BE113F2E6FF00B4F331 /* RestKitHelpers.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				1A5F3A3313EBFF9F00A344C1 /* SparqlViewController.m in Sources */,
 				1A5F3A3713EC1ED000A344C1 /* URICache.m in Sources */,
 				1A4AE41513EC60AA000E38CE /* NSTableView+TDExtensions.m in Sources */,
+				1A6F4BE213F2E6FF00B4F331 /* RestKitHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

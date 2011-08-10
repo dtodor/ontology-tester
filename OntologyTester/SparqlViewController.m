@@ -41,6 +41,7 @@
 #import "URICache.h"
 #import "NSTableView+TDExtensions.h"
 #import "Ontology.h"
+#import "RestKitHelpers.h"
 
 @interface SparqlViewController() <RKObjectLoaderDelegate, NSTableViewDataSource, TDTableViewDelegate>
 
@@ -147,6 +148,7 @@
     NSUInteger numberOfRows = [_result.solutions count];
     if (numberOfRows > 0) {
         for (NSTableColumn *column in columns) {
+            [column sizeToFit];
             NSUInteger columnIndex = [_resultsTable columnWithIdentifier:[column identifier]];
             CGFloat width = 0;
             for (NSUInteger row = 0; row < numberOfRows; row++) {
@@ -156,7 +158,7 @@
                     width = cellWidth;
                 }
             }
-            if (width > 0) {
+            if (width > [column width]) {
                 [column setWidth:width];
             }
         }
@@ -196,23 +198,22 @@
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    
     NSUInteger columnIndex = [_result.variables indexOfObject:[tableColumn identifier]];
     Solution *solution = [_result.solutions objectAtIndex:row];
-    NSString *uri = [solution.values objectAtIndex:columnIndex];
-    
-    NSString *ns = nil;
-    NSString *ln = nil;
-    
-    NSString *retValue = uri;
-    [_uriCache uriForAbbreviatedUri:uri namespace:&ns localName:&ln];
-    if (ns && ln) {
-        NSString *prefix = [[DefaultNamespaces sharedDefaultNamespaces] prefixForNamespace:ns onlyEnabled:YES];
-        if (prefix) {
-            retValue = [NSString stringWithFormat:@"%@:%@", prefix, ln];
+    NSString *retValue = @"";
+    id value = [solution.values objectAtIndex:columnIndex];
+    if (!isJerseyNil(value)) {
+        NSString *uri = value;
+        NSString *ns = nil;
+        NSString *ln = nil;
+        [_uriCache uriForAbbreviatedUri:uri namespace:&ns localName:&ln];
+        if (ns && ln) {
+            NSString *prefix = [[DefaultNamespaces sharedDefaultNamespaces] prefixForNamespace:ns onlyEnabled:YES];
+            if (prefix) {
+                retValue = [NSString stringWithFormat:@"%@:%@", prefix, ln];
+            }
         }
     }
-    
     return retValue;
 }
 
