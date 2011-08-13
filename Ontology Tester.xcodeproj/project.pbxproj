@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A01CA4013EACDF100AC65CE /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A01CA3F13EACDF100AC65CE /* defaults.plist */; };
 		1A01CA4313EAD7B800AC65CE /* NamespacePrefixValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A01CA4213EAD7B800AC65CE /* NamespacePrefixValueTransformer.m */; };
+		1A057F6013F6BCB70084FE89 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A057F5F13F6BCB70084FE89 /* History.m */; };
 		1A20CCEF13E997B8002387A2 /* ErrorMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A20CCEE13E997B8002387A2 /* ErrorMessage.m */; };
 		1A2F615313E7FAA400B9A9D7 /* RDFTriple.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615013E7FAA400B9A9D7 /* RDFTriple.m */; };
 		1A2F615413E7FAA400B9A9D7 /* Statements.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A2F615213E7FAA400B9A9D7 /* Statements.m */; };
@@ -133,6 +134,8 @@
 		1A01CA3F13EACDF100AC65CE /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaults.plist; sourceTree = "<group>"; };
 		1A01CA4113EAD7B800AC65CE /* NamespacePrefixValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamespacePrefixValueTransformer.h; sourceTree = "<group>"; };
 		1A01CA4213EAD7B800AC65CE /* NamespacePrefixValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NamespacePrefixValueTransformer.m; sourceTree = "<group>"; };
+		1A057F5E13F6BCB70084FE89 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
+		1A057F5F13F6BCB70084FE89 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1A20CCED13E997B8002387A2 /* ErrorMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ErrorMessage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1A20CCEE13E997B8002387A2 /* ErrorMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ErrorMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1A2F614F13E7FAA400B9A9D7 /* RDFTriple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RDFTriple.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -316,6 +319,8 @@
 				1A20CCEE13E997B8002387A2 /* ErrorMessage.m */,
 				1AA2585B13EB176500392607 /* SparqlQuery.h */,
 				1AA2585C13EB176500392607 /* SparqlQuery.m */,
+				1A057F5E13F6BCB70084FE89 /* History.h */,
+				1A057F5F13F6BCB70084FE89 /* History.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				1A5F3A3713EC1ED000A344C1 /* URICache.m in Sources */,
 				1A4AE41513EC60AA000E38CE /* NSTableView+TDExtensions.m in Sources */,
 				1A6F4BE213F2E6FF00B4F331 /* RestKitHelpers.m in Sources */,
+				1A057F6013F6BCB70084FE89 /* History.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

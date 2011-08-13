@@ -58,6 +58,7 @@
 @synthesize queryString=_queryString;
 @synthesize font=_font;
 @synthesize resultsTable=_resultsTable;
+@synthesize queryTextView=_queryTextView;
 @synthesize result=_result;
 @synthesize predefinedQuery=_predefinedQuery;
 
@@ -125,7 +126,10 @@
 }
 
 - (IBAction)loadPredefinedQuery:(id)sender {
-    self.queryString = self.predefinedQuery.query;
+    self.queryString = [NSString stringWithFormat:@"%@\n", self.predefinedQuery.query];
+    NSRange range = { [_queryString length], 0 };
+    [_queryTextView setSelectedRange:range];
+    [_queryTextView scrollToEndOfDocument:self];
 }
 
 - (void)populateResults {

@@ -37,12 +37,14 @@
 @class SparqlQuery;
 
 @interface SparqlViewController : NSViewController {
+    NSTextView *_queryTextView;
 }
 
 @property (assign) IBOutlet MainController *mainController;
 @property (nonatomic, copy) NSString *queryString;
 @property (nonatomic, retain) NSFont *font;
 @property (assign) IBOutlet NSTableView *resultsTable;
+@property (assign) IBOutlet NSTextView *queryTextView;
 
 @property (nonatomic, retain) SparqlQuery *predefinedQuery;
 

@@ -35,8 +35,10 @@
 
 @class Statements;
 @class MainController;
+@class History;
 
 @interface StatementsViewController : NSViewController {
+    NSSegmentedControl *_historyControl;
 }
 
 @property (nonatomic, retain) Statements *statements;
@@ -49,11 +51,15 @@
 @property (nonatomic, copy) NSString *predicate;
 @property (nonatomic, copy) NSString *object;
 
+@property (nonatomic, readonly) History *history;
+
 @property (nonatomic) BOOL filterResults;
 @property (nonatomic, retain) NSPredicate *filterPredicate;
 
 @property (assign) IBOutlet MainController *mainController;
+@property (assign) IBOutlet NSSegmentedControl *historyControl;
 
 - (IBAction)performQuery:(id)sender;
+- (IBAction)goToHistory:(id)sender;
 
 @end

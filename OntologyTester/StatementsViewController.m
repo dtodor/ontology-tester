@@ -41,6 +41,7 @@
 #import "MainController.h"
 #import "URICache.h"
 #import "NSTableView+TDExtensions.h"
+#import "History.h"
 
 @interface StatementsViewController() <RKObjectLoaderDelegate, TDTableViewDelegate>
 @end
@@ -56,14 +57,29 @@
 @synthesize object=_object;
 @synthesize objectNS=_objectNS;
 
+@synthesize history=_history;
+
 @synthesize filterResults=_filterResults;
 @synthesize filterPredicate=_filterPredicate;
 
 @synthesize mainController=_mainController;
+@synthesize historyControl=_historyControl;
+
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        _history = [[History alloc] init];
+    }
+    return self;
+}
 
 - (void)awakeFromNib {
     [self addObserver:self forKeyPath:@"filterResults" options:0 context:NULL];
     [self addObserver:self forKeyPath:@"statements" options:0 context:NULL];
+
+    [_history addObserver:self forKeyPath:@"canGoBack" options:0 context:NULL];
+    [_history addObserver:self forKeyPath:@"canGoForward" options:0 context:NULL];
+    
     [_mainController addObserver:self forKeyPath:@"ontology" options:0 context:NULL];
 }
 
@@ -133,12 +149,19 @@
     } else if ([keyPath isEqualToString:@"statements"]) {
         NamespacePrefixValueTransformer *transformer = (NamespacePrefixValueTransformer *)[NSValueTransformer valueTransformerForName:@"NamespacePrefixValueTransformer"];
         transformer.statements = self.statements;
+    } else if ([keyPath isEqualToString:@"canGoBack"]) {
+        [_historyControl setEnabled:_history.canGoBack forSegment:0];
+    } else if ([keyPath isEqualToString:@"canGoForward"]) {
+        [_historyControl setEnabled:_history.canGoForward forSegment:1];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
 - (void)dealloc {
+    [_history removeObserver:self forKeyPath:@"canGoBack"];
+    [_history removeObserver:self forKeyPath:@"canGoForward"];
+
     [self removeObserver:self forKeyPath:@"filterResults"];
     [self removeObserver:self forKeyPath:@"statements"];
     [_mainController removeObserver:self forKeyPath:@"ontology"];
@@ -151,6 +174,8 @@
     [_predicateNS release], _predicateNS = nil;
     [_object release], _object = nil;
     [_objectNS release], _objectNS = nil;
+    
+    [_history release], _history = nil;
     
     [_filterPredicate release], _filterPredicate = nil;
     
@@ -197,7 +222,30 @@
                               }
                           }, @"No query has been specified. Would you like to retrieve all statements from the KB?");
     } else {
+        [_history addToHistoryWithSubject:_subject 
+                                subjectNS:_subjectNS 
+                                predicate:_predicate 
+                              predicateNS:_predicateNS 
+                                   object:_object 
+                                 objectNS:_objectNS];
         doQuery();
+    }
+}
+
+- (IBAction)goToHistory:(id)sender {
+    HistoryItem *historyItem = nil;
+    if ([_historyControl selectedSegment] == 0) {
+        historyItem = [_history goBack];
+    } else {
+        historyItem = [_history goForward];
+    }
+    if (historyItem) {
+        self.subject = historyItem.subject;
+        self.subjectNS = historyItem.subjectNS;
+        self.predicate = historyItem.predicate;
+        self.predicateNS = historyItem.predicateNS;
+        self.object = historyItem.object;
+        self.objectNS = historyItem.objectNS;
     }
 }
 
