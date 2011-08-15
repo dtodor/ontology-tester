@@ -150,21 +150,19 @@
     [_resultsTable reloadData];
     columns = [_resultsTable tableColumns];
     NSUInteger numberOfRows = [_result.solutions count];
-    if (numberOfRows > 0) {
-        for (NSTableColumn *column in columns) {
-            [column sizeToFit];
-            NSUInteger columnIndex = [_resultsTable columnWithIdentifier:[column identifier]];
-            CGFloat width = 0;
-            for (NSUInteger row = 0; row < numberOfRows; row++) {
-                NSCell *cell = [_resultsTable preparedCellAtColumn:columnIndex row:row];
-                CGFloat cellWidth = [cell cellSize].width;
-                if (cellWidth > width) {
-                    width = cellWidth;
-                }
+    for (NSTableColumn *column in columns) {
+        [column sizeToFit];
+        NSUInteger columnIndex = [_resultsTable columnWithIdentifier:[column identifier]];
+        CGFloat width = 0;
+        for (NSUInteger row = 0; row < numberOfRows; row++) {
+            NSCell *cell = [_resultsTable preparedCellAtColumn:columnIndex row:row];
+            CGFloat cellWidth = [cell cellSize].width + 1.0;
+            if (cellWidth > width) {
+                width = cellWidth;
             }
-            if (width > [column width]) {
-                [column setWidth:width];
-            }
+        }
+        if (width > [column width]) {
+            [column setWidth:width];
         }
     }
 }
@@ -230,21 +228,17 @@
 }
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    
     if (![tableView isKindOfClass:[ResultsTableView class]]) {
         return;
     }
     ResultsTableView *resultsTableView = (ResultsTableView *)tableView;
     NSInteger column = [[resultsTableView tableColumns] indexOfObject:tableColumn];
-    NSNumber *underlineStyle;
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithKeysAndObjects:NSFontAttributeName, [NSFont systemFontOfSize:13.0], nil];
     if (column == resultsTableView.mouseOverColumn && row == resultsTableView.mouseOverRow) {
-        underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleSingle];
-    } else {
-        underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleNone];
+        NSNumber *underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleSingle|NSUnderlinePatternDot];
+        [attributes setObject:underlineStyle forKey:NSUnderlineStyleAttributeName];
+        [attributes setObject:[NSColor colorWithCalibratedRed:0.200 green:0.400 blue:0.800 alpha:1.000] forKey:NSForegroundColorAttributeName];
     }
-    
-    NSDictionary *attributes = [NSDictionary dictionaryWithKeysAndObjects:NSFontAttributeName, [NSFont systemFontOfSize:13.0], NSUnderlineStyleAttributeName, underlineStyle, nil];
-    
     NSAttributedString *value = [[NSAttributedString alloc] initWithString:[cell stringValue] attributes:attributes];
     [(NSCell *)cell setAttributedStringValue:value];
     [value release];

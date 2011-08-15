@@ -36,8 +36,6 @@
 @implementation ResultsTableView {
 	NSTrackingArea *_trackingArea;
     id _monitor;
-    BOOL _altPressed;
-    BOOL _modifiersChanged;
     BOOL _mouseInside;
 }
 
@@ -75,36 +73,20 @@
 	if (![myDelegate respondsToSelector:@selector(tableView:willDisplayCell:forTableColumn:row:)]) {
 		return;
     }
-    if (_modifiersChanged || _altPressed) {
-        _modifiersChanged = NO;
-        if (_altPressed) {
-            [[NSCursor pointingHandCursor] set];
-            NSPoint mouseLocation = [[self window] mouseLocationOutsideOfEventStream];
-            NSPoint point = [self convertPoint:mouseLocation
-                                      fromView:nil];
-            NSInteger column = [self columnAtPoint:point];
-            NSUInteger row = [self rowAtPoint:point];
-            if (_mouseOverColumn != column || _mouseOverRow != row) {
-                NSInteger oldRow = _mouseOverRow;
-                NSInteger oldColumn = _mouseOverColumn;
-                _mouseOverRow = row;
-                _mouseOverColumn = column;
-                NSRect cellFrame = [self frameOfCellAtColumn:oldColumn row:oldRow];
-                [self setNeedsDisplayInRect:cellFrame];
-                cellFrame = [self frameOfCellAtColumn:_mouseOverColumn row:_mouseOverRow];
-                [self setNeedsDisplayInRect:cellFrame];
-            }
-        } else {
-            [[NSCursor arrowCursor] set];
-            if (_mouseOverRow >= 0 || _mouseOverColumn >= 0) {
-                NSInteger oldRow = _mouseOverRow;
-                _mouseOverRow = -1;
-                NSInteger oldColumn = _mouseOverColumn;
-                _mouseOverColumn = -1;
-                NSRect cellFrame = [self frameOfCellAtColumn:oldColumn row:oldRow];
-                [self setNeedsDisplayInRect:cellFrame];
-            }
-        }
+    NSPoint mouseLocation = [[self window] mouseLocationOutsideOfEventStream];
+    NSPoint point = [self convertPoint:mouseLocation
+                              fromView:nil];
+    NSInteger column = [self columnAtPoint:point];
+    NSUInteger row = [self rowAtPoint:point];
+    if (_mouseOverColumn != column || _mouseOverRow != row) {
+        NSInteger oldRow = _mouseOverRow;
+        NSInteger oldColumn = _mouseOverColumn;
+        _mouseOverRow = row;
+        _mouseOverColumn = column;
+        NSRect cellFrame = [self frameOfCellAtColumn:oldColumn row:oldRow];
+        [self setNeedsDisplayInRect:cellFrame];
+        cellFrame = [self frameOfCellAtColumn:_mouseOverColumn row:_mouseOverRow];
+        [self setNeedsDisplayInRect:cellFrame];
     }
 }
 
@@ -112,21 +94,8 @@
 	[[self window] setAcceptsMouseMovedEvents:YES];
     _mouseOverColumn = -1;
     _mouseOverRow = -1;
-    _trackingArea = [[NSTrackingArea alloc] initWithRect:[self visibleRect] options:NSTrackingMouseEnteredAndExited|NSTrackingMouseMoved|NSTrackingActiveInActiveApp|NSTrackingInVisibleRect owner:self userInfo:nil];
+    _trackingArea = [[NSTrackingArea alloc] initWithRect:[self visibleRect] options:NSTrackingMouseEnteredAndExited|NSTrackingMouseMoved|NSTrackingCursorUpdate|NSTrackingActiveInActiveApp|NSTrackingInVisibleRect owner:self userInfo:nil];
     [self addTrackingArea:_trackingArea];
-    [NSEvent addLocalMonitorForEventsMatchingMask:NSFlagsChangedMask handler:^NSEvent *(NSEvent *event) {
-        
-        _modifiersChanged = YES;
-        if ([event modifierFlags] & NSAlternateKeyMask) {
-            _altPressed = YES;
-        } else {
-            _altPressed = NO;
-        }
-        if (_mouseInside) {
-            [self updateCells];
-        }
-        return event;
-    }];
 }
 
 - (void)dealloc {
@@ -134,6 +103,10 @@
 	[self removeTrackingArea:_trackingArea];
     [_trackingArea release], _trackingArea = nil;
 	[super dealloc];
+}
+
+- (void)cursorUpdate:(NSEvent *)event {
+    [[NSCursor pointingHandCursor] set];
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
@@ -159,13 +132,12 @@
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [super mouseDown:theEvent];
-    if (!_mouseInside || !_altPressed) {
+    if (!_mouseInside) {
         return;
     }
     if (![[self delegate] conformsToProtocol:@protocol(ResultsTableViewDelegate)]) {
         return;
     }
-    _altPressed = NO;
     NSPoint point = [self convertPoint:[theEvent locationInWindow]
                               fromView:nil];
     NSInteger column = [self columnAtPoint:point];

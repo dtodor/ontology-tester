@@ -278,21 +278,17 @@
 }
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    
     if (![tableView isKindOfClass:[ResultsTableView class]]) {
         return;
     }
     ResultsTableView *resultsTableView = (ResultsTableView *)tableView;
     NSInteger column = [[resultsTableView tableColumns] indexOfObject:tableColumn];
-    NSNumber *underlineStyle;
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithKeysAndObjects:NSFontAttributeName, [NSFont systemFontOfSize:13.0], nil];
     if (column == resultsTableView.mouseOverColumn && row == resultsTableView.mouseOverRow) {
-        underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleSingle];
-    } else {
-        underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleNone];
+        NSNumber *underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleSingle|NSUnderlinePatternDot];
+        [attributes setObject:underlineStyle forKey:NSUnderlineStyleAttributeName];
+        [attributes setObject:[NSColor colorWithCalibratedRed:1.000 green:0.200 blue:0.200 alpha:1.000] forKey:NSForegroundColorAttributeName];
     }
-    
-    NSDictionary *attributes = [NSDictionary dictionaryWithKeysAndObjects:NSFontAttributeName, [NSFont systemFontOfSize:13.0], NSUnderlineStyleAttributeName, underlineStyle, nil];
-    
     NSAttributedString *value = [[NSAttributedString alloc] initWithString:[cell stringValue] attributes:attributes];
     [(NSCell *)cell setAttributedStringValue:value];
     [value release];
