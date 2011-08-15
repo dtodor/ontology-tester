@@ -39,11 +39,11 @@
 #import "RDFTriple.h"
 #import "DefaultNamespaces.h"
 #import "URICache.h"
-#import "NSTableView+TDExtensions.h"
 #import "Ontology.h"
 #import "RestKitHelpers.h"
+#import "ResultsTableView.h"
 
-@interface SparqlViewController() <RKObjectLoaderDelegate, NSTableViewDataSource, TDTableViewDelegate>
+@interface SparqlViewController() <RKObjectLoaderDelegate, NSTableViewDataSource, ResultsTableViewDelegate>
 
 @property (nonatomic, retain) SparqlQuery *result;
 
@@ -222,8 +222,33 @@
 }
 
 #pragma mark -
-#pragma mark TDTableViewDelegate 
+#pragma mark ResultsTableViewDelegate 
 #pragma mark -
+
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+    return NO;
+}
+
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    
+    if (![tableView isKindOfClass:[ResultsTableView class]]) {
+        return;
+    }
+    ResultsTableView *resultsTableView = (ResultsTableView *)tableView;
+    NSInteger column = [[resultsTableView tableColumns] indexOfObject:tableColumn];
+    NSNumber *underlineStyle;
+    if (column == resultsTableView.mouseOverColumn && row == resultsTableView.mouseOverRow) {
+        underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleSingle];
+    } else {
+        underlineStyle = [NSNumber numberWithInt:NSUnderlineStyleNone];
+    }
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithKeysAndObjects:NSFontAttributeName, [NSFont systemFontOfSize:13.0], NSUnderlineStyleAttributeName, underlineStyle, nil];
+    
+    NSAttributedString *value = [[NSAttributedString alloc] initWithString:[cell stringValue] attributes:attributes];
+    [(NSCell *)cell setAttributedStringValue:value];
+    [value release];
+}
 
 - (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
     
@@ -232,8 +257,8 @@
     return uri;
 }
 
-- (NSMenu *)tableView:(NSTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
-    [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+- (NSMenu *)tableView:(ResultsTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
+
     NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
     NSString *uri = [_uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
     return [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
