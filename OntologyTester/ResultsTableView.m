@@ -147,7 +147,7 @@
     SEL sel = @selector(tableView:menuForTableColumn:row:);
     if (column >= 0 && row >= 0 && [delegate respondsToSelector:sel]) {
         NSMenu *menu = [delegate tableView:self menuForTableColumn:column row:row];
-        if ([[menu itemArray] count] > 0) {
+        if (menu && [[menu itemArray] count] > 0) {
             [menu popUpMenuPositioningItem:[menu itemAtIndex:0] atLocation:point inView:self];
         }
     }

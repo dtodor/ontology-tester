@@ -254,8 +254,12 @@
 - (NSMenu *)tableView:(ResultsTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
 
     NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
-    NSString *uri = [_uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
-    return [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
+    if ([stringValue length] > 0) {
+        NSString *uri = [_uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
+        return [tableView nameCopyMenuForUri:uri abbreviatedUri:stringValue];
+    } else {
+        return nil;
+    }
 }
 
 @end
