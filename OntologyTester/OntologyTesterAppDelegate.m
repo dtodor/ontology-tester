@@ -42,6 +42,9 @@
     // RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelDebug);
     // RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [_window setTitle:[NSString stringWithFormat:@"Ontology Tester - %@", version]];
 }
 
 @end
