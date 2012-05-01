@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -43,9 +43,15 @@
 #import "RestKitHelpers.h"
 #import "ResultsTableView.h"
 
-@interface SparqlViewController() <RKObjectLoaderDelegate, NSTableViewDataSource, ResultsTableViewDelegate>
+@interface SparqlViewController () <RKObjectLoaderDelegate, NSTableViewDataSource, ResultsTableViewDelegate>
 
-@property (nonatomic, retain) SparqlQuery *result;
+@property (nonatomic, strong) SparqlQuery *result;
+@property (nonatomic, weak) IBOutlet MainController *mainController;
+@property (nonatomic, weak) IBOutlet NSTableView *resultsTable;
+@property (nonatomic, assign) IBOutlet NSTextView *queryTextView;
+- (IBAction)performQuery:(id)sender;
+- (IBAction)populateNamespaces:(id)sender;
+- (IBAction)loadPredefinedQuery:(id)sender;
 
 @end
 
@@ -54,30 +60,23 @@
     URICache *_uriCache;
 }
 
-@synthesize mainController=_mainController;
-@synthesize queryString=_queryString;
-@synthesize font=_font;
-@synthesize resultsTable=_resultsTable;
-@synthesize queryTextView=_queryTextView;
-@synthesize result=_result;
-@synthesize predefinedQuery=_predefinedQuery;
+@synthesize mainController = _mainController;
+@synthesize queryString = _queryString;
+@synthesize font = _font;
+@synthesize resultsTable = _resultsTable;
+@synthesize queryTextView = _queryTextView;
+@synthesize result = _result;
+@synthesize predefinedQuery = _predefinedQuery;
 
-- (void)dealloc {
-    [_queryString release], _queryString = nil;
-    [_font release], _font = nil;
-    [_result release], _result = nil;
-    [_uriCache release], _uriCache = nil;
-    [_predefinedQuery release], _predefinedQuery = nil;
-    [super dealloc];
-}
-
-- (void)awakeFromNib {
+- (void)awakeFromNib 
+{
     self.font = [NSFont systemFontOfSize:10.0];
     [self populateNamespaces:self];
     [_mainController addObserver:self forKeyPath:@"ontology" options:0 context:NULL];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context 
+{
     if ([keyPath isEqualToString:@"ontology"]) {
         NSArray *queries = _mainController.ontology.predefinedQueries;
         if ([queries count] > 0) {
@@ -90,25 +89,27 @@
     }
 }
 
-- (IBAction)performQuery:(id)sender {
+- (IBAction)performQuery:(id)sender 
+{
     SparqlQuery *test = [[SparqlQuery alloc] init];
     test.query = self.queryString;
     
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
     _mainController.processing = YES;
-    [objectManager postObject:test delegate:self block:^(RKObjectLoader *loader) {
+    [objectManager postObject:test usingBlock:^(RKObjectLoader *loader) {
+        loader.delegate = self;
         loader.serializationMIMEType = RKMIMETypeJSON; // We want to send this request as JSON
         loader.targetObject = nil;  // Map the results back onto a new object instead of self
         // Set up a custom serialization mapping to handle this request
-        loader.serializationMapping = [RKObjectMapping serializationMappingWithBlock:^(RKObjectMapping* mapping) {
+        loader.serializationMapping = [RKObjectMapping serializationMappingUsingBlock:^(RKObjectMapping *mapping) {
             [mapping mapAttributes:@"query", nil];
         }];
         loader.serializationMapping.rootKeyPath = @"sparqlQuery";
     }];
-    [test release];
 }
 
-- (IBAction)populateNamespaces:(id)sender {
+- (IBAction)populateNamespaces:(id)sender 
+{
     DefaultNamespaces *defaultNamespaces = [DefaultNamespaces sharedDefaultNamespaces];
     NSSet *namespaces = [defaultNamespaces namespaces];
     NSMutableString *preloadedPrefixes = [NSMutableString string];
@@ -125,14 +126,16 @@
     self.queryString = preloadedPrefixes;
 }
 
-- (IBAction)loadPredefinedQuery:(id)sender {
+- (IBAction)loadPredefinedQuery:(id)sender 
+{
     self.queryString = [NSString stringWithFormat:@"%@\n", self.predefinedQuery.query];
     NSRange range = { [_queryString length], 0 };
     [_queryTextView setSelectedRange:range];
     [_queryTextView scrollToEndOfDocument:self];
 }
 
-- (void)populateResults {
+- (void)populateResults 
+{
     NSArray *columns = [NSArray arrayWithArray:[_resultsTable tableColumns]];
     for (NSTableColumn *column in columns) {
         [_resultsTable removeTableColumn:column];
@@ -145,7 +148,6 @@
         NSTableColumn *varColumn = [[NSTableColumn alloc] initWithIdentifier:variable];
         [[varColumn headerCell] setStringValue:variable];
         [_resultsTable addTableColumn:varColumn];
-        [varColumn release];
     }
     [_resultsTable reloadData];
     columns = [_resultsTable tableColumns];
@@ -171,19 +173,20 @@
 #pragma mark RKObjectLoaderDelegate 
 #pragma mark -
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error 
+{
     _mainController.processing = NO;
     NSLog(@"An error occurred: %@", [error localizedDescription]);
     NSAlert *alert = [NSAlert alertWithError:error];
     [alert beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:NULL];
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object 
+{
     _mainController.processing = NO;
     if ([object isKindOfClass:[SparqlQuery class]]) {
         SparqlQuery *result = (SparqlQuery *)object;
         self.result = result;
-        [_uriCache release];
         _uriCache = [[URICache alloc] initWithNamespaces:result.namespaces];
     } else if (!object) {
         self.result = nil;
@@ -195,11 +198,13 @@
 #pragma mark NSTableViewDataSource 
 #pragma mark -
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView 
+{
     return [_result.solutions count];
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row 
+{
     NSUInteger columnIndex = [_result.variables indexOfObject:[tableColumn identifier]];
     Solution *solution = [_result.solutions objectAtIndex:row];
     NSString *retValue = @"";
@@ -223,11 +228,13 @@
 #pragma mark ResultsTableViewDelegate 
 #pragma mark -
 
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row 
+{
     return NO;
 }
 
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row 
+{
     if (![tableView isKindOfClass:[ResultsTableView class]]) {
         return;
     }
@@ -241,18 +248,18 @@
     }
     NSAttributedString *value = [[NSAttributedString alloc] initWithString:[cell stringValue] attributes:attributes];
     [(NSCell *)cell setAttributedStringValue:value];
-    [value release];
 }
 
-- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
+- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation 
+{
     
     NSString *stringValue = [aCell stringValue];
     NSString *uri = [_uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
     return uri;
 }
 
-- (NSMenu *)tableView:(ResultsTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
-
+- (NSMenu *)tableView:(ResultsTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row 
+{
     NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
     if ([stringValue length] > 0) {
         NSString *uri = [_uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];

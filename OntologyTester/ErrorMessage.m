@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -35,14 +35,10 @@
 
 @implementation ErrorMessage
 
-@synthesize message=_message;
+@synthesize message = _message;
 
-- (void)dealloc {
-    [_message release], _message = nil;
-    [super dealloc];
-}
-
-- (NSString *)description {
+- (NSString *)description 
+{
     return [NSString stringWithFormat:@"A server error occurred, reason:\n\n%@", _message];
 }
 

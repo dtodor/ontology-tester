@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11A511</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1617</string>
+			<string key="NS.object.0">2182</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSTableHeaderView</string>
@@ -35,7 +35,10 @@
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 		</array>
-		<dictionary class="NSMutableDictionary" key="IBDocument.Metadata"/>
+		<object class="NSMutableDictionary" key="IBDocument.Metadata">
+			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
+			<integer value="1" key="NS.object.0"/>
+		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1000">
 			<object class="NSCustomObject" id="1001">
 				<string key="NSClassName">StatementsViewController</string>
@@ -493,7 +496,7 @@
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSSegmentedCell" key="NSCell" id="85703050">
 											<int key="NSCellFlags">67239424</int>
-											<int key="NSCellFlags2">0</int>
+											<int key="NSCellFlags2">32768</int>
 											<object class="NSFont" key="NSSupport">
 												<string key="NSName">LucidaGrande</string>
 												<double key="NSSize">13</double>
@@ -814,148 +817,28 @@
 					<int key="connectionID">2</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">performQuery:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="875539566"/>
+					</object>
+					<int key="connectionID">532</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">goToHistory:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="212423802"/>
+					</object>
+					<int key="connectionID">571</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="63314874"/>
-						<reference key="destination" ref="1001"/>
+						<string key="label">historyControl</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="212423802"/>
 					</object>
-					<int key="connectionID">208</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.subject</string>
-						<reference key="source" ref="202234081"/>
-						<reference key="destination" ref="919523313"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="202234081"/>
-							<reference key="NSDestination" ref="919523313"/>
-							<string key="NSLabel">value: arrangedObjects.subject</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.subject</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NamespacePrefixValueTransformer</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">219</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.predicate</string>
-						<reference key="source" ref="1028208431"/>
-						<reference key="destination" ref="919523313"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1028208431"/>
-							<reference key="NSDestination" ref="919523313"/>
-							<string key="NSLabel">value: arrangedObjects.predicate</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.predicate</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NamespacePrefixValueTransformer</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">220</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.object</string>
-						<reference key="source" ref="768290404"/>
-						<reference key="destination" ref="919523313"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="768290404"/>
-							<reference key="NSDestination" ref="919523313"/>
-							<string key="NSLabel">value: arrangedObjects.object</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.object</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NamespacePrefixValueTransformer</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">221</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: mainController.ontology.namespaces</string>
-						<reference key="source" ref="890845080"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="890845080"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentArray: mainController.ontology.namespaces</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">mainController.ontology.namespaces</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">471</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: subject</string>
-						<reference key="source" ref="726542120"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="726542120"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: subject</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">subject</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">487</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: predicate</string>
-						<reference key="source" ref="46132789"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="46132789"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: predicate</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">predicate</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">488</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: object</string>
-						<reference key="source" ref="494834638"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="494834638"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: object</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">object</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">489</int>
+					<int key="connectionID">576</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -972,142 +855,6 @@
 						</object>
 					</object>
 					<int key="connectionID">491</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">filterPredicate: filterPredicate</string>
-						<reference key="source" ref="919523313"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="919523313"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">filterPredicate: filterPredicate</string>
-							<string key="NSBinding">filterPredicate</string>
-							<string key="NSKeyPath">filterPredicate</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">493</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: mainController.ontology</string>
-						<reference key="source" ref="875539566"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector" id="140430632">
-							<reference key="NSSource" ref="875539566"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: mainController.ontology</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">mainController.ontology</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSIsNotNil</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">496</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: mainController.ontology</string>
-						<reference key="source" ref="46132789"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="46132789"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: mainController.ontology</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">mainController.ontology</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSIsNotNil</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">503</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: mainController.ontology</string>
-						<reference key="source" ref="494834638"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="494834638"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: mainController.ontology</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">mainController.ontology</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSIsNotNil</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">506</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">editable: mainController.ontology</string>
-						<reference key="source" ref="726542120"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="726542120"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">editable: mainController.ontology</string>
-							<string key="NSBinding">editable</string>
-							<string key="NSKeyPath">mainController.ontology</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSIsNotNil</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">507</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: mainController.ontology</string>
-						<reference key="source" ref="1060259814"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1060259814"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: mainController.ontology</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">mainController.ontology</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSIsNotNil</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">513</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: mainController.ontology</string>
-						<reference key="source" ref="31702303"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="31702303"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: mainController.ontology</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">mainController.ontology</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSIsNotNil</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">516</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1128,6 +875,63 @@
 						</object>
 					</object>
 					<int key="connectionID">519</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">content: arrangedObjects</string>
+						<reference key="source" ref="96340390"/>
+						<reference key="destination" ref="890845080"/>
+						<object class="NSNibBindingConnector" key="connector" id="768191132">
+							<reference key="NSSource" ref="96340390"/>
+							<reference key="NSDestination" ref="890845080"/>
+							<string key="NSLabel">content: arrangedObjects</string>
+							<string key="NSBinding">content</string>
+							<string key="NSKeyPath">arrangedObjects</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSInsertsNullPlaceholder</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">538</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedObject: objectNS</string>
+						<reference key="source" ref="96340390"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="96340390"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">selectedObject: objectNS</string>
+							<string key="NSBinding">selectedObject</string>
+							<string key="NSKeyPath">objectNS</string>
+							<reference key="NSPreviousConnector" ref="768191132"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">539</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: mainController.ontology</string>
+						<reference key="source" ref="875539566"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector" id="140430632">
+							<reference key="NSSource" ref="875539566"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: mainController.ontology</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">mainController.ontology</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">496</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1154,28 +958,160 @@
 					<int key="connectionID">520</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">performQuery:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="875539566"/>
-					</object>
-					<int key="connectionID">532</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: statements.triples</string>
-						<reference key="source" ref="919523313"/>
+						<string key="label">value: object</string>
+						<reference key="source" ref="494834638"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="919523313"/>
+							<reference key="NSSource" ref="494834638"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentArray: statements.triples</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">statements.triples</string>
+							<string key="NSLabel">value: object</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">object</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">533</int>
+					<int key="connectionID">489</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: mainController.ontology</string>
+						<reference key="source" ref="494834638"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="494834638"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: mainController.ontology</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">mainController.ontology</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">506</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: predicate</string>
+						<reference key="source" ref="46132789"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="46132789"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: predicate</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">predicate</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">488</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: mainController.ontology</string>
+						<reference key="source" ref="46132789"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="46132789"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: mainController.ontology</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">mainController.ontology</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">503</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="46132789"/>
+						<reference key="destination" ref="494834638"/>
+					</object>
+					<int key="connectionID">582</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: subject</string>
+						<reference key="source" ref="726542120"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="726542120"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: subject</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">subject</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSContinuouslyUpdatesValue</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">487</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">editable: mainController.ontology</string>
+						<reference key="source" ref="726542120"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="726542120"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">editable: mainController.ontology</string>
+							<string key="NSBinding">editable</string>
+							<string key="NSKeyPath">mainController.ontology</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">507</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
+						<reference key="source" ref="726542120"/>
+						<reference key="destination" ref="46132789"/>
+					</object>
+					<int key="connectionID">581</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: mainController.ontology</string>
+						<reference key="source" ref="31702303"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="31702303"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: mainController.ontology</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">mainController.ontology</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">516</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1216,6 +1152,26 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: mainController.ontology</string>
+						<reference key="source" ref="1060259814"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1060259814"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: mainController.ontology</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">mainController.ontology</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">513</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">content: arrangedObjects</string>
 						<reference key="source" ref="1060259814"/>
 						<reference key="destination" ref="890845080"/>
@@ -1252,57 +1208,120 @@
 					<int key="connectionID">537</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="63314874"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">208</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">content: arrangedObjects</string>
-						<reference key="source" ref="96340390"/>
-						<reference key="destination" ref="890845080"/>
-						<object class="NSNibBindingConnector" key="connector" id="768191132">
-							<reference key="NSSource" ref="96340390"/>
-							<reference key="NSDestination" ref="890845080"/>
-							<string key="NSLabel">content: arrangedObjects</string>
-							<string key="NSBinding">content</string>
-							<string key="NSKeyPath">arrangedObjects</string>
+						<string key="label">value: arrangedObjects.object</string>
+						<reference key="source" ref="768290404"/>
+						<reference key="destination" ref="919523313"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="768290404"/>
+							<reference key="NSDestination" ref="919523313"/>
+							<string key="NSLabel">value: arrangedObjects.object</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.object</string>
 							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSInsertsNullPlaceholder</string>
-								<boolean value="YES" key="NS.object.0"/>
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NamespacePrefixValueTransformer</string>
 							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">538</int>
+					<int key="connectionID">221</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectedObject: objectNS</string>
-						<reference key="source" ref="96340390"/>
-						<reference key="destination" ref="1001"/>
+						<string key="label">value: arrangedObjects.predicate</string>
+						<reference key="source" ref="1028208431"/>
+						<reference key="destination" ref="919523313"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="96340390"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">selectedObject: objectNS</string>
-							<string key="NSBinding">selectedObject</string>
-							<string key="NSKeyPath">objectNS</string>
-							<reference key="NSPreviousConnector" ref="768191132"/>
+							<reference key="NSSource" ref="1028208431"/>
+							<reference key="NSDestination" ref="919523313"/>
+							<string key="NSLabel">value: arrangedObjects.predicate</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.predicate</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NamespacePrefixValueTransformer</string>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">539</int>
+					<int key="connectionID">220</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">goToHistory:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="212423802"/>
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.subject</string>
+						<reference key="source" ref="202234081"/>
+						<reference key="destination" ref="919523313"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="202234081"/>
+							<reference key="NSDestination" ref="919523313"/>
+							<string key="NSLabel">value: arrangedObjects.subject</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.subject</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NamespacePrefixValueTransformer</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
 					</object>
-					<int key="connectionID">571</int>
+					<int key="connectionID">219</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">historyControl</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="212423802"/>
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">filterPredicate: filterPredicate</string>
+						<reference key="source" ref="919523313"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="919523313"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">filterPredicate: filterPredicate</string>
+							<string key="NSBinding">filterPredicate</string>
+							<string key="NSKeyPath">filterPredicate</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
 					</object>
-					<int key="connectionID">576</int>
+					<int key="connectionID">493</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: statements.triples</string>
+						<reference key="source" ref="919523313"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="919523313"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentArray: statements.triples</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">statements.triples</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">533</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: mainController.ontology.namespaces</string>
+						<reference key="source" ref="890845080"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="890845080"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentArray: mainController.ontology.namespaces</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">mainController.ontology.namespaces</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">471</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1323,22 +1342,6 @@
 						</object>
 					</object>
 					<int key="connectionID">580</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="726542120"/>
-						<reference key="destination" ref="46132789"/>
-					</object>
-					<int key="connectionID">581</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="46132789"/>
-						<reference key="destination" ref="494834638"/>
-					</object>
-					<int key="connectionID">582</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1383,6 +1386,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1399,6 +1403,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1414,6 +1419,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1429,6 +1435,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1444,6 +1451,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1459,6 +1467,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1474,6 +1483,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">3</int>
+								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">1</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1489,6 +1499,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="1005"/>
 							</object>
@@ -1523,6 +1534,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1539,6 +1551,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1556,6 +1569,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1571,6 +1585,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1586,6 +1601,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1601,6 +1617,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">9</int>
+								<float key="scoringTypeFloat">40</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1624,6 +1641,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1639,6 +1657,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1654,6 +1673,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1669,6 +1689,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1684,6 +1705,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1699,6 +1721,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1714,6 +1737,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1729,6 +1753,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1744,6 +1769,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1759,6 +1785,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1774,6 +1801,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1789,6 +1817,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1804,6 +1833,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">3</int>
+								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">1</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1819,6 +1849,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1834,6 +1865,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1849,6 +1881,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">3</int>
+								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1864,6 +1897,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1879,6 +1913,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1894,6 +1929,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1909,6 +1945,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1924,6 +1961,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">8</int>
+								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1939,6 +1977,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1955,6 +1994,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">6</int>
+								<float key="scoringTypeFloat">24</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -1970,6 +2010,7 @@
 								</object>
 								<float key="priority">1000</float>
 								<int key="scoringType">5</int>
+								<float key="scoringTypeFloat">22</float>
 								<int key="contentType">2</int>
 								<reference key="containingView" ref="699277684"/>
 							</object>
@@ -2805,8 +2846,8 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSGoLeftTemplate">{9, 9}</string>
 			<string key="NSGoRightTemplate">{9, 9}</string>
-			<string key="NSMenuCheckmark">{9, 8}</string>
-			<string key="NSMenuMixedState">{7, 2}</string>
+			<string key="NSMenuCheckmark">{11, 11}</string>
+			<string key="NSMenuMixedState">{10, 3}</string>
 			<string key="NSSwitch">{15, 15}</string>
 		</dictionary>
 		<bool key="IBDocument.UseAutolayout">YES</bool>

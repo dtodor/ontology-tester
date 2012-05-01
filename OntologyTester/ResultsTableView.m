@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -39,33 +39,34 @@
     BOOL _mouseInside;
 }
 
-@synthesize mouseOverRow=_mouseOverRow;
-@synthesize mouseOverColumn=_mouseOverColumn;
+@synthesize mouseOverRow = _mouseOverRow;
+@synthesize mouseOverColumn = _mouseOverColumn;
 
-- (void)menuSelected:(NSMenuItem *)sender {
+- (void)menuSelected:(NSMenuItem *)sender 
+{
     NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
     [pasteBoard clearContents];
     [pasteBoard setString:[sender representedObject] forType:NSStringPboardType];
 }
 
-- (NSMenu *)nameCopyMenuForUri:(NSString *)uri abbreviatedUri:(NSString *)abbreviatedUri {
+- (NSMenu *)nameCopyMenuForUri:(NSString *)uri abbreviatedUri:(NSString *)abbreviatedUri 
+{
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@"URI Helper Menu"];
     NSMenuItem *item1 = [[NSMenuItem alloc] initWithTitle:@"Copy Fully Qualified URI" action:@selector(menuSelected:) keyEquivalent:@""];
     [item1 setRepresentedObject:uri];
     [item1 setTarget:self];
     [menu addItem:item1];
-    [item1 release];
     if (![uri isEqualToString:abbreviatedUri]) {
         NSMenuItem *item2 = [[NSMenuItem alloc] initWithTitle:@"Copy Prefixed URI" action:@selector(menuSelected:) keyEquivalent:@""];
         [item2 setTarget:self];
         [item2 setRepresentedObject:abbreviatedUri];
         [menu addItem:item2];
-        [item2 release];
     }
-    return [menu autorelease];
+    return menu;
 }
 
-- (void)updateCells {
+- (void)updateCells 
+{
 	id myDelegate = [self delegate];
 	if (!myDelegate) {
 		return;
@@ -90,7 +91,8 @@
     }
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib 
+{
 	[[self window] setAcceptsMouseMovedEvents:YES];
     _mouseOverColumn = -1;
     _mouseOverRow = -1;
@@ -98,27 +100,30 @@
     [self addTrackingArea:_trackingArea];
 }
 
-- (void)dealloc {
+- (void)dealloc 
+{
     [NSEvent removeMonitor:_monitor];
 	[self removeTrackingArea:_trackingArea];
-    [_trackingArea release], _trackingArea = nil;
-	[super dealloc];
 }
 
-- (void)cursorUpdate:(NSEvent *)event {
+- (void)cursorUpdate:(NSEvent *)event 
+{
     [[NSCursor pointingHandCursor] set];
 }
 
-- (void)mouseEntered:(NSEvent *)theEvent {
+- (void)mouseEntered:(NSEvent *)theEvent 
+{
     _mouseInside = YES;
     [self updateCells];
 }
 
-- (void)mouseMoved:(NSEvent *)theEvent {
+- (void)mouseMoved:(NSEvent *)theEvent 
+{
     [self updateCells];
 }
 
-- (void)mouseExited:(NSEvent *)theEvent {
+- (void)mouseExited:(NSEvent *)theEvent 
+{
     [[NSCursor arrowCursor] set];
     _mouseInside = NO;
     
@@ -130,7 +135,8 @@
     [self setNeedsDisplayInRect:cellFrame];
 }
 
-- (void)mouseDown:(NSEvent *)theEvent {
+- (void)mouseDown:(NSEvent *)theEvent 
+{
     [super mouseDown:theEvent];
     if (!_mouseInside) {
         return;

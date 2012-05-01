@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -38,11 +38,12 @@
 
 @implementation Statements
 
-@synthesize namespaces=_namespaces;
-@synthesize triples=_triples;
-@synthesize uriCache=_uriCache;
+@synthesize namespaces = _namespaces;
+@synthesize triples = _triples;
+@synthesize uriCache = _uriCache;
 
-- (id)init {
+- (id)init 
+{
     self = [super init];
     if (self) {
         [self addObserver:self forKeyPath:@"namespaces" options:0 context:NULL];
@@ -50,25 +51,22 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc 
+{
     [self removeObserver:self forKeyPath:@"namespaces"];
-    
-    [_namespaces release], _namespaces = nil;
-    [_triples release], _triples = nil;
-    [_uriCache release], _uriCache = nil;
-    [super dealloc];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context 
+{
     if ([keyPath isEqualToString:@"namespaces"]) {
-        [_uriCache release];
         _uriCache = [[URICache alloc] initWithNamespaces:_namespaces];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
-- (NSString *)description {
+- (NSString *)description 
+{
     NSString *descr = @"namespaces:\n";
     NSUInteger i = 0;
     for (NSString *namespace in _namespaces) {

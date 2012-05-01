@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -35,8 +35,8 @@
 
 @interface Ontology : NSObject
 
-@property (nonatomic, retain) NSArray *namespaces;
+@property (nonatomic, strong) NSArray *namespaces;
 @property (nonatomic, copy) NSString *uri;
-@property (nonatomic, retain) NSArray *predefinedQueries;
+@property (nonatomic, strong) NSArray *predefinedQueries;
 
 @end

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -36,18 +36,12 @@
 
 @implementation RDFTriple
 
-@synthesize subject=_subject;
-@synthesize predicate=_predicate;
-@synthesize object=_object;
+@synthesize subject = _subject;
+@synthesize predicate = _predicate;
+@synthesize object = _object;
 
-- (void)dealloc {
-    [_subject release], _subject = nil;
-    [_predicate release], _predicate = nil;
-    [_object release], _object = nil;
-    [super dealloc];
-}
-
-- (NSString *)description {
+- (NSString *)description 
+{
     return [NSString stringWithFormat:@"{%@ %@ %@}", _subject, _predicate, _object];
 }
 

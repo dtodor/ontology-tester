@@ -10,12 +10,12 @@
 
 @interface HistoryItem : NSObject
 
-@property (nonatomic, readonly) NSString *subjectNS;
-@property (nonatomic, readonly) NSString *subject;
-@property (nonatomic, readonly) NSString *predicateNS;
-@property (nonatomic, readonly) NSString *predicate;
-@property (nonatomic, readonly) NSString *objectNS;
-@property (nonatomic, readonly) NSString *object;
+@property (nonatomic, strong, readonly) NSString *subjectNS;
+@property (nonatomic, strong, readonly) NSString *subject;
+@property (nonatomic, strong, readonly) NSString *predicateNS;
+@property (nonatomic, strong, readonly) NSString *predicate;
+@property (nonatomic, strong, readonly) NSString *objectNS;
+@property (nonatomic, strong, readonly) NSString *object;
 
 @end
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -35,10 +35,9 @@
 
 @class Statements;
 
-@interface NamespacePrefixValueTransformer : NSValueTransformer {
-}
+@interface NamespacePrefixValueTransformer : NSValueTransformer 
 
-@property (nonatomic, retain) Statements *statements;
+@property (nonatomic, strong) Statements *statements;
 
 @end
 

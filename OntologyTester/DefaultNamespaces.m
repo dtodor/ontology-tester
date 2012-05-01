@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,8 @@
     NSMutableDictionary *_enabledNamespaces;
 }
 
-+ (DefaultNamespaces *)sharedDefaultNamespaces {
++ (DefaultNamespaces *)sharedDefaultNamespaces 
+{
     static dispatch_once_t onceToken;
     static DefaultNamespaces *instance = nil;
     dispatch_once(&onceToken, ^{
@@ -48,7 +49,8 @@
     return instance;
 }
 
-- (void)initNamespaces {
+- (void)initNamespaces 
+{
     [_prefix2namespace removeAllObjects];
     [_namespace2prefix removeAllObjects];
     [_enabledNamespaces removeAllObjects];
@@ -63,7 +65,8 @@
     }
 }
 
-- (id)init {
+- (id)init 
+{
     self = [super init];
     if (self) {
         _prefix2namespace = [[NSMutableDictionary alloc] init];
@@ -75,7 +78,8 @@
     return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context 
+{
     if ([keyPath isEqualToString:@"namespaces"]) {
         [self initNamespaces];
     } else {
@@ -83,26 +87,26 @@
     }
 }
 
-- (void)dealloc {
+- (void)dealloc 
+{
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"namespaces"];
-    [_prefix2namespace release], _prefix2namespace = nil;
-    [_namespace2prefix release], _namespace2prefix = nil;
-    [_enabledNamespaces release], _enabledNamespaces = nil;
-	[super dealloc];
 }
 
-- (NSString *)prefixForNamespace:(NSString *)namespace onlyEnabled:(BOOL)enabled {
+- (NSString *)prefixForNamespace:(NSString *)namespace onlyEnabled:(BOOL)enabled 
+{
     if (enabled && ![[_enabledNamespaces objectForKey:namespace] boolValue]) {
         return nil;
     }
     return [_namespace2prefix objectForKey:namespace];
 }
 
-- (NSString *)namespaceForPerfix:(NSString *)prefix {
+- (NSString *)namespaceForPerfix:(NSString *)prefix 
+{
     return [_prefix2namespace objectForKey:prefix];
 }
 
-- (NSSet *)namespaces {
+- (NSSet *)namespaces 
+{
     return [_namespace2prefix keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
         return YES;
     }];

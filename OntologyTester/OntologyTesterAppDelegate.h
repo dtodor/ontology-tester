@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -33,9 +33,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface OntologyTesterAppDelegate : NSObject<NSApplicationDelegate> {
-}
+@interface OntologyTesterAppDelegate : NSObject<NSApplicationDelegate> 
 
-@property (assign) IBOutlet NSWindow *window;
+@property (nonatomic, assign) IBOutlet NSWindow *window;
 
 @end

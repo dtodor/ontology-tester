@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -43,19 +43,31 @@
 #import "RDFTriple.h"
 #import "SparqlViewController.h"
 
-@interface MainController() <RKObjectLoaderDelegate>
+@interface MainController () <RKObjectLoaderDelegate>
+
+@property (nonatomic, weak) IBOutlet NSProgressIndicator *activityIndicator;
+@property (nonatomic, assign) IBOutlet StatementsViewController *statementsViewController;
+@property (nonatomic, assign) IBOutlet SparqlViewController *sparqlViewController;
+@property (nonatomic, weak) IBOutlet NSTabView *tabBiew;
+- (IBAction)refresh:(id)sender;
+- (IBAction)openPreferences:(id)sender;
+
+@property (nonatomic, strong) PreferencesWindowController *preferencesController;
+
 @end
 
 @implementation MainController
 
-@synthesize ontology=_ontology;
-@synthesize activityIndicator=_activityIndicator;
-@synthesize statementsViewController=_statementsViewController;
-@synthesize sparqlViewController=_sparqlViewController;
-@synthesize tabBiew=_tavBiew;
-@synthesize processing=_processing;
+@synthesize ontology = _ontology;
+@synthesize activityIndicator = _activityIndicator;
+@synthesize statementsViewController = _statementsViewController;
+@synthesize sparqlViewController = _sparqlViewController;
+@synthesize tabBiew = _tavBiew;
+@synthesize processing = _processing;
+@synthesize preferencesController = _preferencesController;
 
-+ (void)initialize {
++ (void)initialize 
+{
     if (self == [MainController class]) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"defaults" ofType:@"plist"];
         NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -64,28 +76,26 @@
         {
             NamespacePrefixValueTransformer *transformer = [[NamespacePrefixValueTransformer alloc] init];
             [NSValueTransformer setValueTransformer:transformer forName:@"NamespacePrefixValueTransformer"];
-            [transformer release];
         }
         
         {
             StringLengthValueTransformer *transformer = [[StringLengthValueTransformer alloc] init];
             [NSValueTransformer setValueTransformer:transformer forName:@"StringLengthValueTransformer"];
-            [transformer release];
         }
         
         {
             ArraySizeValueTransformer *transformer = [[ArraySizeValueTransformer alloc] init];
             [NSValueTransformer setValueTransformer:transformer forName:@"ArraySizeValueTransformer"];
-            [transformer release];
         }
     }
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib 
+{
     [_activityIndicator setHidden:YES];
     
     NSString *address = [[NSUserDefaults standardUserDefaults] stringForKey:@"serverAddress"];
-    RKObjectManager *objectManager = [RKObjectManager objectManagerWithBaseURL:address];
+    RKObjectManager *objectManager = [RKObjectManager objectManagerWithBaseURL:[NSURL URLWithString:address]];
     
     // Setup our object mappings
     RKObjectMapping *rdfTriple = [RKObjectMapping mappingForClass:[RDFTriple class]];
@@ -129,7 +139,8 @@
     [[_tavBiew tabViewItemAtIndex:1] setView:_sparqlViewController.view];
 }
 
-- (void)updateNamespacesConfiguration {
+- (void)updateNamespacesConfiguration 
+{
     if (!self.ontology.namespaces) {
         return;
     }
@@ -167,10 +178,11 @@
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context 
+{
     if ([keyPath isEqualToString:@"serverAddress"]) {
         NSString *address = [[NSUserDefaults standardUserDefaults] stringForKey:@"serverAddress"];
-        [[RKObjectManager sharedManager].client setBaseURL:address];
+        [[RKObjectManager sharedManager].client setBaseURL:[NSURL URLWithString:address]];
     } else if ([keyPath isEqualToString:@"ontology"]) {
         [self updateNamespacesConfiguration];
     } else if ([keyPath isEqualToString:@"processing"]) {
@@ -186,48 +198,52 @@
     }
 }
 
-- (void)dealloc {
+- (void)dealloc 
+{
     [self removeObserver:self forKeyPath:@"ontology"];
     [self removeObserver:self forKeyPath:@"processing"];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"serverAddress"];
-    [_ontology dealloc], _ontology = nil;
-    [super dealloc];
 }
 
-- (IBAction)refresh:(id)sender {
+- (IBAction)refresh:(id)sender 
+{
     self.processing = YES;
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
     [objectManager loadObjectsAtResourcePath:@"/ontology" delegate:self];
 }
 
-- (void)preferencesSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void)preferencesSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo 
+{
     NSLog(@"Close preferences");
-    [(PreferencesWindowController *)contextInfo release];
+    self.preferencesController = nil;
 }
 
-- (IBAction)openPreferences:(id)sender {
+- (IBAction)openPreferences:(id)sender 
+{
     NSLog(@"Open preferences");
-    PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
+    self.preferencesController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
 
-    [NSApp beginSheet:preferencesWindowController.window 
+    [NSApp beginSheet:self.preferencesController.window 
 	   modalForWindow:[NSApp mainWindow] 
 		modalDelegate:self 
 	   didEndSelector:@selector(preferencesSheetDidEnd:returnCode:contextInfo:) 
-		  contextInfo:preferencesWindowController];
+		  contextInfo:NULL];
 }
 
 #pragma mark -
 #pragma mark RKObjectLoaderDelegate 
 #pragma mark -
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error 
+{
     self.processing = NO;
     NSLog(@"An error occurred: %@", [error localizedDescription]);
     NSAlert *alert = [NSAlert alertWithError:error];
     [alert beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:NULL];
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object 
+{
     self.processing = NO;
     if ([object isKindOfClass:[Ontology class]]) {
         Ontology *ontology = (Ontology *)object;

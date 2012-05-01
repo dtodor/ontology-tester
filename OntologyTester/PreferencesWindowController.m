@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -33,19 +33,34 @@
 
 #import "PreferencesWindowController.h"
 
+@interface PreferencesWindowController ()
+
+@property (nonatomic, weak) IBOutlet NSArrayController *filtersArrayController;
+@property (nonatomic, weak) IBOutlet NSTableView *filtersTable;
+@property (nonatomic, weak) IBOutlet NSArrayController *namespacesArrayController;
+@property (nonatomic, weak) IBOutlet NSTableView *namespacesTable;
+
+- (IBAction)dismiss:(id)sender;
+- (IBAction)addNewFilter:(id)sender;
+- (IBAction)addNewNamespace:(id)sender;
+
+@end
+
 @implementation PreferencesWindowController
 
-@synthesize filtersArrayController=_filtersArrayController;
-@synthesize filtersTable=_filtersTable;
-@synthesize namespacesArrayController=_namespacesArrayController;
-@synthesize namespacesTable=_namespacesTable;
+@synthesize filtersArrayController = _filtersArrayController;
+@synthesize filtersTable = _filtersTable;
+@synthesize namespacesArrayController = _namespacesArrayController;
+@synthesize namespacesTable = _namespacesTable;
 
-- (IBAction)dismiss:(id)sender {
+- (IBAction)dismiss:(id)sender
+{
     [NSApp endSheet:self.window returnCode:0];
 	[self.window orderOut:nil];
 }
 
-- (IBAction)addNewFilter:(id)sender {
+- (IBAction)addNewFilter:(id)sender 
+{
     NSMutableDictionary *dictionary = [_filtersArrayController newObject];
     [dictionary setObject:@"Predicate" forKey:@"predicate"];
     [dictionary setObject:[NSNumber numberWithBool:YES] forKey:@"enabled"];
@@ -54,10 +69,10 @@
     NSUInteger newRow = [[_filtersArrayController arrangedObjects] count]-1;
     [_filtersTable selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
     [_filtersTable editColumn:0 row:newRow withEvent:nil select:YES];
-    [dictionary release];
 }
 
-- (IBAction)addNewNamespace:(id)sender {
+- (IBAction)addNewNamespace:(id)sender 
+{
     NSMutableDictionary *dictionary = [_namespacesArrayController newObject];
     [dictionary setObject:@"Namespace" forKey:@"namespace"];
     [dictionary setObject:@"Prefix" forKey:@"prefix"];
@@ -67,7 +82,6 @@
     NSUInteger newRow = [[_namespacesArrayController arrangedObjects] count]-1;
     [_namespacesTable selectRowIndexes:[NSIndexSet indexSetWithIndex:newRow] byExtendingSelection:NO];
     [_namespacesTable editColumn:0 row:([[_namespacesArrayController arrangedObjects] count]-1) withEvent:nil select:YES];
-    [dictionary release];
 }
 
 @end

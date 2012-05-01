@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -43,29 +43,37 @@
 #import "History.h"
 #import "ResultsTableView.h"
 
-@interface StatementsViewController() <RKObjectLoaderDelegate, ResultsTableViewDelegate>
+@interface StatementsViewController () <RKObjectLoaderDelegate, ResultsTableViewDelegate>
+
+@property (nonatomic, weak) IBOutlet MainController *mainController;
+@property (nonatomic, weak) IBOutlet NSSegmentedControl *historyControl;
+
+- (IBAction)performQuery:(id)sender;
+- (IBAction)goToHistory:(id)sender;
+
 @end
 
 @implementation StatementsViewController
 
-@synthesize statements=_statements;
+@synthesize statements = _statements;
+ 
+@synthesize subject = _subject;
+@synthesize subjectNS = _subjectNS;
+@synthesize predicate = _predicate;
+@synthesize predicateNS = _predicateNS;
+@synthesize object = _object;
+@synthesize objectNS = _objectNS;
 
-@synthesize subject=_subject;
-@synthesize subjectNS=_subjectNS;
-@synthesize predicate=_predicate;
-@synthesize predicateNS=_predicateNS;
-@synthesize object=_object;
-@synthesize objectNS=_objectNS;
+@synthesize history = _history;
 
-@synthesize history=_history;
+@synthesize filterResults = _filterResults;
+@synthesize filterPredicate = _filterPredicate;
 
-@synthesize filterResults=_filterResults;
-@synthesize filterPredicate=_filterPredicate;
+@synthesize mainController = _mainController;
+@synthesize historyControl = _historyControl;
 
-@synthesize mainController=_mainController;
-@synthesize historyControl=_historyControl;
-
-- (id)initWithCoder:(NSCoder *)coder {
+- (id)initWithCoder:(NSCoder *)coder 
+{
     self = [super initWithCoder:coder];
     if (self) {
         _history = [[History alloc] init];
@@ -73,7 +81,8 @@
     return self;
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib 
+{
     [self addObserver:self forKeyPath:@"filterResults" options:0 context:NULL];
     [self addObserver:self forKeyPath:@"statements" options:0 context:NULL];
 
@@ -83,7 +92,8 @@
     [_mainController addObserver:self forKeyPath:@"ontology" options:0 context:NULL];
 }
 
-- (NSPredicate *)buildFilterPredicate {
+- (NSPredicate *)buildFilterPredicate 
+{
     NSArray *filters = [[NSUserDefaults standardUserDefaults] arrayForKey:@"filters"];
     NSMutableArray *enabledFilters = [NSMutableArray array];
     [filters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -128,7 +138,8 @@
     }];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context 
+{
     if ([keyPath isEqualToString:@"filterResults"]) {
         if (_filterResults) {
             self.filterPredicate = [self buildFilterPredicate];
@@ -158,31 +169,18 @@
     }
 }
 
-- (void)dealloc {
+- (void)dealloc 
+{
     [_history removeObserver:self forKeyPath:@"canGoBack"];
     [_history removeObserver:self forKeyPath:@"canGoForward"];
 
     [self removeObserver:self forKeyPath:@"filterResults"];
     [self removeObserver:self forKeyPath:@"statements"];
     [_mainController removeObserver:self forKeyPath:@"ontology"];
-    
-    [_statements dealloc], _statements = nil;
-    
-    [_subject release], _subject = nil;
-    [_subjectNS release], _subjectNS = nil;
-    [_predicate release], _predicate = nil;
-    [_predicateNS release], _predicateNS = nil;
-    [_object release], _object = nil;
-    [_objectNS release], _objectNS = nil;
-    
-    [_history release], _history = nil;
-    
-    [_filterPredicate release], _filterPredicate = nil;
-    
-    [super dealloc];
 }
 
-- (IBAction)performQuery:(id)sender {
+- (IBAction)performQuery:(id)sender 
+{
     NSMutableDictionary *queryParams = [NSMutableDictionary dictionary];
     if ([_subject length] > 0) {
         if ([_subjectNS length] > 0) {
@@ -206,7 +204,7 @@
         }
     }
     NSString *path = @"/statements";
-    path = [path appendQueryParams:queryParams];
+    path = [path stringByAppendingQueryParameters:queryParams];
     
     void (^doQuery)() = ^{
         _mainController.processing = YES;
@@ -232,7 +230,8 @@
     }
 }
 
-- (IBAction)goToHistory:(id)sender {
+- (IBAction)goToHistory:(id)sender 
+{
     HistoryItem *historyItem = nil;
     if ([_historyControl selectedSegment] == 0) {
         historyItem = [_history goBack];
@@ -253,14 +252,16 @@
 #pragma mark RKObjectLoaderDelegate 
 #pragma mark -
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error 
+{
     _mainController.processing = NO;
     NSLog(@"An error occurred: %@", [error localizedDescription]);
     NSAlert *alert = [NSAlert alertWithError:error];
     [alert beginSheetModalForWindow:[NSApp mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:NULL];
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object 
+{
     _mainController.processing = NO;
     if ([object isKindOfClass:[Statements class]]) {
         self.statements = (Statements *)object;
@@ -273,11 +274,13 @@
 #pragma mark ResultsTableViewDelegate 
 #pragma mark -
 
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row 
+{
     return NO;
 }
 
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row 
+{
     if (![tableView isKindOfClass:[ResultsTableView class]]) {
         return;
     }
@@ -291,10 +294,10 @@
     }
     NSAttributedString *value = [[NSAttributedString alloc] initWithString:[cell stringValue] attributes:attributes];
     [(NSCell *)cell setAttributedStringValue:value];
-    [value release];
 }
 
-- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
+- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation 
+{
     
     NSString *stringValue = [aCell stringValue];
     NSString *uri = [_statements.uriCache uriForAbbreviatedUri:stringValue namespace:NULL localName:NULL];
@@ -308,7 +311,8 @@ typedef enum {
     SelectAction_ClearRest = 0x04
 } SelectAction;
 
-- (void)selectSubjectPredicateObject:(NSMenuItem *)item {
+- (void)selectSubjectPredicateObject:(NSMenuItem *)item 
+{
     NSDictionary *representedObject = [item representedObject];
     NSString *ns = [representedObject objectForKey:@"namespace"];
     NSString *ln = [representedObject objectForKey:@"localName"];
@@ -337,7 +341,8 @@ typedef enum {
     }
 }
 
-- (NSMenu *)tableView:(ResultsTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row {
+- (NSMenu *)tableView:(ResultsTableView *)tableView menuForTableColumn:(NSInteger)column row:(NSInteger)row 
+{
 
     NSString *stringValue = [[tableView preparedCellAtColumn:column row:row] stringValue];
     NSString *ns = nil;
@@ -359,7 +364,6 @@ typedef enum {
         [item setRepresentedObject:representedObject];
         [item setTarget:self];
         [menu addItem:item];
-        [item release];
 
         NSMenuItem *itemAlt = [[NSMenuItem alloc] initWithTitle:@"Select As Subject And Clear Rest" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
         [itemAlt setTag:SelectAction_Subject|SelectAction_ClearRest];
@@ -368,7 +372,6 @@ typedef enum {
         [itemAlt setRepresentedObject:representedObject];
         [itemAlt setTarget:self];
         [menu addItem:itemAlt];
-        [itemAlt release];
     }
     {
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select As Predicate" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
@@ -376,7 +379,6 @@ typedef enum {
         [item setRepresentedObject:representedObject];
         [item setTarget:self];
         [menu addItem:item];
-        [item release];
         
         NSMenuItem *itemAlt = [[NSMenuItem alloc] initWithTitle:@"Select As Predicate And Clear Rest" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
         [itemAlt setTag:SelectAction_Predicate|SelectAction_ClearRest];
@@ -385,7 +387,6 @@ typedef enum {
         [itemAlt setRepresentedObject:representedObject];
         [itemAlt setTarget:self];
         [menu addItem:itemAlt];
-        [itemAlt release];
     }
     {
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"Select As Object" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
@@ -393,7 +394,6 @@ typedef enum {
         [item setRepresentedObject:representedObject];
         [item setTarget:self];
         [menu addItem:item];
-        [item release];
         
         NSMenuItem *itemAlt = [[NSMenuItem alloc] initWithTitle:@"Select As Object And Clear Rest" action:@selector(selectSubjectPredicateObject:) keyEquivalent:@""];
         [itemAlt setTag:SelectAction_Object|SelectAction_ClearRest];
@@ -402,7 +402,6 @@ typedef enum {
         [itemAlt setRepresentedObject:representedObject];
         [itemAlt setTarget:self];
         [menu addItem:itemAlt];
-        [itemAlt release];
     }
     
     return menu;

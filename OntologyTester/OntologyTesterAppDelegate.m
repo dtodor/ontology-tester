@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -36,9 +36,10 @@
 
 @implementation OntologyTesterAppDelegate
 
-@synthesize window=_window;
+@synthesize window = _window;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification 
+{
     // RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelDebug);
     // RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];

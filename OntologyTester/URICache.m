@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -42,28 +42,21 @@
     NSArray *_namespaces;
 }
 
-- (id)initWithNamespaces:(NSArray *)namespaces {
+- (id)initWithNamespaces:(NSArray *)namespaces 
+{
     self = [super init];
     if (self) {
-        _uriCache = [[NSMutableDictionary dictionary] retain];
-        _namespaceCache = [[NSMutableDictionary dictionary] retain];
-        _localNameCache = [[NSMutableDictionary dictionary] retain];
+        _uriCache = [NSMutableDictionary dictionary];
+        _namespaceCache = [NSMutableDictionary dictionary];
+        _localNameCache = [NSMutableDictionary dictionary];
         
-        _namespaces = [namespaces retain];
+        _namespaces = namespaces;
     }
     return self;
 }
 
-- (void)dealloc {
-    [_uriCache release], _uriCache = nil;
-    [_namespaceCache release], _namespaceCache = nil;
-    [_localNameCache release], _localNameCache = nil;
-    
-    [_namespaces release], _namespaces = nil;
-    [super dealloc];
-}
-
-- (NSString *)uriForAbbreviatedUri:(NSString *)uri namespace:(NSString **)namespace localName:(NSString **)localName {
+- (NSString *)uriForAbbreviatedUri:(NSString *)uri namespace:(NSString **)namespace localName:(NSString **)localName 
+{
     NSString *cached = [_uriCache objectForKey:uri];
     if (cached) {
         if (namespace) {

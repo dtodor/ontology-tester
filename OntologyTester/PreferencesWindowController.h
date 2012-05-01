@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -33,16 +33,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PreferencesWindowController : NSWindowController {
-}
-
-@property (assign) IBOutlet NSArrayController *filtersArrayController;
-@property (assign) IBOutlet NSTableView *filtersTable;
-@property (assign) IBOutlet NSArrayController *namespacesArrayController;
-@property (assign) IBOutlet NSTableView *namespacesTable;
-
-- (IBAction)dismiss:(id)sender;
-- (IBAction)addNewFilter:(id)sender;
-- (IBAction)addNewNamespace:(id)sender;
+@interface PreferencesWindowController : NSWindowController
 
 @end

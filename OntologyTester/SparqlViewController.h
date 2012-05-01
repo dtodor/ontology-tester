@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -33,23 +33,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MainController;
 @class SparqlQuery;
 
-@interface SparqlViewController : NSViewController {
-    NSTextView *_queryTextView;
-}
+@interface SparqlViewController : NSViewController
 
-@property (assign) IBOutlet MainController *mainController;
 @property (nonatomic, copy) NSString *queryString;
-@property (nonatomic, retain) NSFont *font;
-@property (assign) IBOutlet NSTableView *resultsTable;
-@property (assign) IBOutlet NSTextView *queryTextView;
+@property (nonatomic, strong) NSFont *font;
 
-@property (nonatomic, retain) SparqlQuery *predefinedQuery;
-
-- (IBAction)performQuery:(id)sender;
-- (IBAction)populateNamespaces:(id)sender;
-- (IBAction)loadPredefinedQuery:(id)sender;
+@property (nonatomic, strong) SparqlQuery *predefinedQuery;
 
 @end

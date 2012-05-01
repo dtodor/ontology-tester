@@ -12,7 +12,7 @@
 #define HISTORY_SIZE 10
 
 
-@interface HistoryItem()
+@interface HistoryItem ()
 
 + (HistoryItem *)historyItemWithSubject:(NSString *)subject
                               subjectNS:(NSString *)subjectNS
@@ -26,22 +26,23 @@
 
 @implementation HistoryItem
 
-@synthesize subject=_subject;
-@synthesize subjectNS=_subjectNS;
-@synthesize predicate=_predicate;
-@synthesize predicateNS=_predicateNS;
-@synthesize object=_object;
-@synthesize objectNS=_objectNS;
+@synthesize subject = _subject;
+@synthesize subjectNS = _subjectNS;
+@synthesize predicate = _predicate;
+@synthesize predicateNS = _predicateNS;
+@synthesize object = _object;
+@synthesize objectNS = _objectNS;
 
 + (HistoryItem *)historyItemWithSubject:(NSString *)subject 
                               subjectNS:(NSString *)subjectNS
                               predicate:(NSString *)predicate
                             predicateNS:(NSString *)predicateNS
                                  object:(NSString *)object
-                               objectNS:(NSString *)objectNS {
+                               objectNS:(NSString *)objectNS 
+{
     
 
-    HistoryItem *item = [[[HistoryItem alloc] init] autorelease];
+    HistoryItem *item = [[HistoryItem alloc] init];
     if (item) {
         item->_subject = [subject copy];
         item->_subjectNS = [subjectNS copy];
@@ -53,20 +54,10 @@
     return item;
 }
 
-- (void)dealloc {
-    [_subject release], _subject = nil;
-    [_subjectNS release], _subjectNS = nil;
-    [_predicate release], _predicate = nil;
-    [_predicateNS release], _predicateNS = nil;
-    [_object release], _object = nil;
-    [_objectNS release], _objectNS = nil;
-    [super dealloc];
-}
-
 @end
 
 
-@interface History()
+@interface History ()
 
 @property (nonatomic) BOOL canGoBack;
 @property (nonatomic) BOOL canGoForward;
@@ -79,10 +70,11 @@
     NSUInteger _currentPosition;
 }
 
-@synthesize canGoBack=_canGoBack;
-@synthesize canGoForward=_canGoForward;
+@synthesize canGoBack = _canGoBack;
+@synthesize canGoForward = _canGoForward;
 
-- (id)init {
+- (id)init 
+{
     self = [super init];
     if (self) {
         _items = [[NSMutableArray alloc] init];
@@ -92,17 +84,14 @@
     return self;
 }
 
-- (void)dealloc {
-    [_items release], _items = nil;
-    [super dealloc];
-}
-
-- (void)updateState {
+- (void)updateState 
+{
     self.canGoBack = _currentPosition >= 1;
     self.canGoForward = _currentPosition < [_items count]-1;
 }
 
-- (HistoryItem *)goBack {
+- (HistoryItem *)goBack 
+{
     if ([_items count] < 1 || _currentPosition < 1) {
         return nil;
     }
@@ -111,7 +100,8 @@
     return [_items objectAtIndex:_currentPosition];
 }
 
-- (HistoryItem *)goForward {
+- (HistoryItem *)goForward 
+{
     NSUInteger count = [_items count];
     if (count < 1 || _currentPosition == count-1) {
         return nil;
@@ -126,7 +116,8 @@
                       predicate:(NSString *)predicate
                     predicateNS:(NSString *)predicateNS
                          object:(NSString *)object
-                       objectNS:(NSString *)objectNS {
+                       objectNS:(NSString *)objectNS 
+{
     
     HistoryItem *item = [HistoryItem historyItemWithSubject:subject 
                                                   subjectNS:subjectNS 

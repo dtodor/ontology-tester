@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -39,22 +39,20 @@
 
 @implementation NamespacePrefixValueTransformer
 
-@synthesize statements=_statements;
+@synthesize statements = _statements;
 
-- (void)dealloc {
-    [_statements release], _statements = nil;
-	[super dealloc];
-}
-
-+ (Class)transformedValueClass {
++ (Class)transformedValueClass 
+{
     return [NSString class];
 }
 
-+ (BOOL)allowsReverseTransformation {
++ (BOOL)allowsReverseTransformation 
+{
     return NO;
 }
 
-- (id)transformedValue:(id)value {
+- (id)transformedValue:(id)value 
+{
     NSString *namespace = nil;
     NSString *localName = nil;
     [_statements.uriCache uriForAbbreviatedUri:(NSString *)value namespace:&namespace localName:&localName];
@@ -73,15 +71,18 @@
 
 @implementation StringLengthValueTransformer
 
-+ (Class)transformedValueClass {
++ (Class)transformedValueClass 
+{
     return [NSNumber class];
 }
 
-+ (BOOL)allowsReverseTransformation {
++ (BOOL)allowsReverseTransformation 
+{
     return NO;
 }
 
-- (id)transformedValue:(id)value {
+- (id)transformedValue:(id)value 
+{
     BOOL retValue = [(NSString *)value length] > 0;
     return [NSNumber numberWithBool:retValue];
 }
@@ -91,15 +92,18 @@
 
 @implementation ArraySizeValueTransformer
 
-+ (Class)transformedValueClass {
++ (Class)transformedValueClass 
+{
     return [NSNumber class];
 }
 
-+ (BOOL)allowsReverseTransformation {
++ (BOOL)allowsReverseTransformation 
+{
     return NO;
 }
 
-- (id)transformedValue:(id)value {
+- (id)transformedValue:(id)value 
+{
     BOOL retValue = [(NSArray *)value count] > 0;
     return [NSNumber numberWithBool:retValue];
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -34,24 +34,10 @@
 #import <Foundation/Foundation.h>
 
 @class Ontology;
-@class StatementsViewController;
-@class SparqlViewController;
 
-@interface MainController : NSObject {
-    StatementsViewController *_statementsViewController;
-    SparqlViewController *_sparqlViewController;
-    NSTabView *_tavBiew;
-}
+@interface MainController : NSObject
 
-@property (nonatomic, retain) Ontology *ontology;
-@property (assign) IBOutlet NSProgressIndicator *activityIndicator;
-@property (assign) IBOutlet StatementsViewController *statementsViewController;
-@property (assign) IBOutlet SparqlViewController *sparqlViewController;
-@property (assign) IBOutlet NSTabView *tabBiew;
-
+@property (nonatomic, strong) Ontology *ontology;
 @property (nonatomic) BOOL processing;
-
-- (IBAction)refresh:(id)sender;
-- (IBAction)openPreferences:(id)sender;
 
 @end

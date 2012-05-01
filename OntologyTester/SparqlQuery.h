@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@
 
 @interface Solution : NSObject
 
-@property (nonatomic, retain) NSArray *values;
+@property (nonatomic, strong) NSArray *values;
 
 @end
 
@@ -43,8 +43,8 @@
 
 @property (nonatomic, copy) NSString *query;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, retain) NSArray *variables;
-@property (nonatomic, retain) NSArray *namespaces;
-@property (nonatomic, retain) NSArray *solutions;
+@property (nonatomic, strong) NSArray *variables;
+@property (nonatomic, strong) NSArray *namespaces;
+@property (nonatomic, strong) NSArray *solutions;
 
 @end

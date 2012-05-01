@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -34,14 +34,11 @@
 #import <Cocoa/Cocoa.h>
 
 @class Statements;
-@class MainController;
 @class History;
 
-@interface StatementsViewController : NSViewController {
-    NSSegmentedControl *_historyControl;
-}
+@interface StatementsViewController : NSViewController
 
-@property (nonatomic, retain) Statements *statements;
+@property (nonatomic, strong) Statements *statements;
 
 @property (nonatomic, copy) NSString *subjectNS;
 @property (nonatomic, copy) NSString *predicateNS;
@@ -51,15 +48,9 @@
 @property (nonatomic, copy) NSString *predicate;
 @property (nonatomic, copy) NSString *object;
 
-@property (nonatomic, readonly) History *history;
+@property (nonatomic, strong, readonly) History *history;
 
 @property (nonatomic) BOOL filterResults;
-@property (nonatomic, retain) NSPredicate *filterPredicate;
-
-@property (assign) IBOutlet MainController *mainController;
-@property (assign) IBOutlet NSSegmentedControl *historyControl;
-
-- (IBAction)performQuery:(id)sender;
-- (IBAction)goToHistory:(id)sender;
+@property (nonatomic, strong) NSPredicate *filterPredicate;
 
 @end

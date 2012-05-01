@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -37,9 +37,9 @@
 
 @interface Statements : NSObject
 
-@property (nonatomic, retain) NSArray *namespaces;
-@property (nonatomic, retain) NSArray *triples;
+@property (nonatomic, strong) NSArray *namespaces;
+@property (nonatomic, strong) NSArray *triples;
 
-@property (nonatomic, readonly) URICache *uriCache;
+@property (nonatomic, strong, readonly) URICache *uriCache;
 
 @end

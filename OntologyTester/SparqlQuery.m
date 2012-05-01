@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Todor Dimitrov
+ * Copyright (c) 2012 Todor Dimitrov
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -35,30 +35,16 @@
 
 @implementation Solution
 
-@synthesize values=_values;
-
-- (void)dealloc {
-    [_values release], _values = nil;
-    [super dealloc];
-}
+@synthesize values = _values;
 
 @end
 
 @implementation SparqlQuery
 
-@synthesize query=_query;
-@synthesize name=_name;
-@synthesize variables=_variables;
-@synthesize namespaces=_namespaces;
-@synthesize solutions=_solutions;
-
-- (void)dealloc {
-    [_query release], _query = nil;
-    [_name release], _name = nil;
-    [_variables release], _variables = nil;
-    [_namespaces release], _namespaces = nil;
-    [_solutions release], _solutions = nil;
-    [super dealloc];
-}
+@synthesize query = _query;
+@synthesize name = _name;
+@synthesize variables = _variables;
+@synthesize namespaces = _namespaces;
+@synthesize solutions = _solutions;
 
 @end
